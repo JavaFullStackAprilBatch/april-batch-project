@@ -21,9 +21,10 @@ public class CompanyService {
 
     public Company crateCompany(Company company) {
 
-//        if (company.getAddress() != null) {
-//            company.getAddress().forEach(address -> address.setCompany(company));
-//        }
+       /* if (company.getAddress() != null) {
+            company.getAddress().forEach(address -> address.setCompany(company));
+        }*/
+
         return companyRepository.save(company);
     }
 

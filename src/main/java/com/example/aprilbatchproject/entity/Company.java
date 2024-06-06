@@ -13,8 +13,8 @@ public class Company {
     private String name;
     private String email;
 
-    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
     private List<Address> address;
 
     public List<Address> getAddress() {
