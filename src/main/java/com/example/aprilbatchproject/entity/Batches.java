@@ -23,7 +23,7 @@ public class Batches {
     private Date end_date;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "student_batch",
+    @JoinTable(name = "batch_student",
             joinColumns = @JoinColumn(name = "batch_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     private List<Students> students;
@@ -36,9 +36,8 @@ public class Batches {
     @JoinColumn(name = "courses_id")
     private Courses courses;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "batch_id")
-    private List<Trainers> trainer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Trainers trainer;
 
     @OneToMany(targetEntity = Recordings.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "batch_id", referencedColumnName = "batch_id")
@@ -100,11 +99,11 @@ public class Batches {
         this.courses = courses;
     }
 
-    public List<Trainers> getTrainer() {
+    public Trainers getTrainer() {
         return trainer;
     }
 
-    public void setTrainer(List<Trainers> trainer) {
+    public void setTrainer(Trainers trainer) {
         this.trainer = trainer;
     }
 

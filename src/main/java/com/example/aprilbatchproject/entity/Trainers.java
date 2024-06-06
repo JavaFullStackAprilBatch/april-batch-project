@@ -2,6 +2,8 @@ package com.example.aprilbatchproject.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "trainers")
 public class Trainers {
@@ -14,8 +16,9 @@ public class Trainers {
     private String phone;
     private String specialization;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Batches batches;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "trainer_id")
+    private List<Batches> batches;
 
     public long getTrainer_id() {
         return trainer_id;
@@ -57,11 +60,11 @@ public class Trainers {
         this.specialization = specialization;
     }
 
-    public Batches getBatches() {
+    public List<Batches> getBatches() {
         return batches;
     }
 
-    public void setBatches(Batches batches) {
+    public void setBatches(List<Batches> batches) {
         this.batches = batches;
     }
 }
