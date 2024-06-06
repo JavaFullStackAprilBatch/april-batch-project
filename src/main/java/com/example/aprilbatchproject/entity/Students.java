@@ -2,6 +2,8 @@ package com.example.aprilbatchproject.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "students")
 public class Students {
@@ -13,8 +15,8 @@ public class Students {
     private String email;
     private String phone;
 
-
-    //private Batches batches;
+    @ManyToMany(mappedBy = "students")
+    private List<Batches> batches;
 
     @OneToOne(targetEntity = Address.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
@@ -60,4 +62,11 @@ public class Students {
         this.address = address;
     }
 
+    public List<Batches> getBatches() {
+        return batches;
+    }
+
+    public void setBatches(List<Batches> batches) {
+        this.batches = batches;
+    }
 }
