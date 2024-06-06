@@ -14,6 +14,9 @@ public class Trainers {
     private String phone;
     private String specialization;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Batches batches;
+
     public long getTrainer_id() {
         return trainer_id;
     }
@@ -52,5 +55,13 @@ public class Trainers {
 
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
+    }
+
+    public Batches getBatches() {
+        return batches;
+    }
+
+    public void setBatches(Batches batches) {
+        this.batches = batches;
     }
 }

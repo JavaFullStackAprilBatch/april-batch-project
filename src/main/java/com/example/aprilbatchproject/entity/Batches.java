@@ -14,7 +14,7 @@ public class Batches {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "batch_id")
     private long id;
-    private  String batch_name;
+    private String batch_name;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date start_date;
@@ -22,7 +22,7 @@ public class Batches {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date end_date;
 
-    @ManyToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "student_batch",
             joinColumns = @JoinColumn(name = "batch_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id"))
@@ -32,17 +32,17 @@ public class Batches {
     @Column(name = "statusType")
     private StatusType status;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "courses_id")
     private Courses courses;
 
-    @JoinColumn(name = "trainer_id", referencedColumnName = "trainer_id")
-    @OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-    private Trainers trainer;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "batch_id")
+    private List<Trainers> trainer;
 
-    @OneToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JoinColumn(name = "recording_id")
-    private Recordings recordings;
+    @OneToMany(targetEntity = Recordings.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "batch_id", referencedColumnName = "batch_id")
+    private List<Recordings> recording;
 
     public long getId() {
         return id;
@@ -100,19 +100,19 @@ public class Batches {
         this.courses = courses;
     }
 
-    public Trainers getTrainer() {
+    public List<Trainers> getTrainer() {
         return trainer;
     }
 
-    public void setTrainer(Trainers trainer) {
+    public void setTrainer(List<Trainers> trainer) {
         this.trainer = trainer;
     }
 
-    public Recordings getRecordings() {
-        return recordings;
+    public List<Recordings> getRecording() {
+        return recording;
     }
 
-    public void setRecordings(Recordings recordings) {
-        this.recordings = recordings;
+    public void setRecording(List<Recordings> recording) {
+        this.recording = recording;
     }
 }
