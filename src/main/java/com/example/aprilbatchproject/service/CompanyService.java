@@ -24,6 +24,7 @@ public class CompanyService {
        /* if (company.getAddress() != null) {
             company.getAddress().forEach(address -> address.setCompany(company));
         }*/
+
         return companyRepository.save(company);
     }
 

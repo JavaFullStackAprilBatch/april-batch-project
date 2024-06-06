@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "address")
+
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -56,4 +57,5 @@ public class Address {
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
+
 }
