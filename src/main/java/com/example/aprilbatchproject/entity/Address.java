@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.data.repository.cdi.Eager;
 
 @Entity
+
 public class Address {
     public Long getId() {
         return id;
@@ -34,15 +35,15 @@ public class Address {
     private Long id;
     private String city;
     private String state;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id")
-    private Company company;
+//    @ManyToOne(fetch = FetchType.LAZY)
 
-    public Company getCompany() {
-        return company;
-    }
+//    private Company company;
 
-    public void setCompany(Company company) {
-        this.company = company;
-    }
+//    public Company getCompany() {
+//        return company;
+//    }
+//
+//    public void setCompany(Company company) {
+//        this.company = company;
+//    }
 }
