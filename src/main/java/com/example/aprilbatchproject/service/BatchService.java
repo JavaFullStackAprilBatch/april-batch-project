@@ -6,12 +6,19 @@ import com.example.aprilbatchproject.repository.BatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BatchService {
     @Autowired
     BatchRepository batchRepository;
-    public String createStudentsBatch(Batches batches){
+
+    public String createStudentsBatch(Batches batches) {
         batchRepository.save(batches);
         return "Data saved";
+    }
+
+    public List<String> getListOfBatchNames() {
+        return batchRepository.findListOfBatchNames();
     }
 }
