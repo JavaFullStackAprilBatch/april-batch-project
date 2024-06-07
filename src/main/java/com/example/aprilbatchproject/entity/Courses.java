@@ -8,7 +8,7 @@ public class Courses {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long course_id;
-    private String couser_name;
+    private String course_name;
     private String course_content;
 
     public long getCourse_id() {
@@ -19,12 +19,12 @@ public class Courses {
         this.course_id = course_id;
     }
 
-    public String getCouser_name() {
-        return couser_name;
+    public String getCourse_name() {
+        return course_name;
     }
 
-    public void setCouser_name(String couser_name) {
-        this.couser_name = couser_name;
+    public void setCourse_name(String course_name) {
+        this.course_name = course_name;
     }
 
     public String getCourse_content() {
