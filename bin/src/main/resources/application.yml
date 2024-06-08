@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: april-batch-project
+  datasource:
+    url: jdbc:postgresql://3.110.167.233:5432/aprilbatchdb
+    username: aprilbatch
+    password: aprilBatch
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
