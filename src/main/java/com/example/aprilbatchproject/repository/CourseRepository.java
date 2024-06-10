@@ -1,10 +1,11 @@
 package com.example.aprilbatchproject.repository;
 
 import com.example.aprilbatchproject.entity.Courses;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Courses, Long> {
@@ -13,5 +14,8 @@ public interface CourseRepository extends JpaRepository<Courses, Long> {
 
     Boolean existsByCourseNameIgnoreCase(String Name);
 
+
+	@Query(value= "select distinct course_name from Courses")
+	List<String> getAllCourseNames();
 
 }
