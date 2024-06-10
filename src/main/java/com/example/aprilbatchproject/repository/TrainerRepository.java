@@ -11,6 +11,6 @@ import com.example.aprilbatchproject.entity.Trainers;
 @Repository
 public interface TrainerRepository extends JpaRepository<Trainers, Long>{
 	@Query ("Select distinct name from Trainers")
-	public List<String> getAllTrainers();
+	public List<String> findAllDistinctTrainerNames();
 
 }

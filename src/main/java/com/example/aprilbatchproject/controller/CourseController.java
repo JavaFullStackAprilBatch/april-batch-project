@@ -2,7 +2,11 @@ package com.example.aprilbatchproject.controller;
 
 import java.util.List;
 
+import com.example.aprilbatchproject.dto.CourseDTO;
+import com.example.aprilbatchproject.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,8 +20,14 @@ public class CourseController {
 	CourseService courseService;
 
 	@GetMapping("/getAllCoursesName")
-	public List<String> getCoursesNames() {
-		return courseService.getAllCourseNames();
-		
+	public ResponseEntity<ApiResponse<List<CourseDTO>>> getCoursesNames() {
+//		return courseService.getAllCourseNames();
+		List<CourseDTO> courseNames = courseService.getAllCourseNames();
+		ApiResponse<List<CourseDTO>> response = new ApiResponse<>(true, "Courses fetched successfully", courseNames);
+		return  ResponseEntity.ok(response);
+
+
+
+
 	}
 }

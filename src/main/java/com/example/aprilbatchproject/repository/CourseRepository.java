@@ -12,6 +12,6 @@ import com.example.aprilbatchproject.entity.Courses;
 public interface CourseRepository extends JpaRepository<Courses, Long>{
 	
 	@Query(value= "select distinct course_name from Courses")
-	List<String> getAllCourseNames();
+	List<String> findAllDistinctCourseNames();
 
 }
