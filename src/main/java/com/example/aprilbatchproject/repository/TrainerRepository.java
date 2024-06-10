@@ -7,10 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.aprilbatchproject.entity.Trainers;
+import com.example.springbootpost.entity.Company;
 
 @Repository
 public interface TrainerRepository extends JpaRepository<Trainers, Long>{
 	@Query ("Select distinct name from Trainers")
 	public List<String> getAllTrainers();
+	public Trainers findByName(String name);
+	
+	
+
 
 }
