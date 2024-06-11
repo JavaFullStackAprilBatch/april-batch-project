@@ -15,7 +15,15 @@ public class Students {
     private String email;
     private String phone;
 
-    @ManyToMany(mappedBy = "students")
+//    @ManyToMany(mappedBy = "students")
+//    private List<Batches> batches;
+
+    @ManyToMany
+    @JoinTable(
+            name = "student_batches",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "batch_id")
+    )
     private List<Batches> batches;
 
     @OneToOne(targetEntity = Address.class, cascade = CascadeType.ALL)
