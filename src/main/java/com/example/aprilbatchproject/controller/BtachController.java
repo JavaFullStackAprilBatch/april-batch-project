@@ -22,6 +22,6 @@ public class BtachController {
     @DeleteMapping("/batch/{batchId}")
     public String deleteBatch(@PathVariable Long batchId){
         batchService.deleteBatch(batchId);
-        return "New Student Data Save Successfully";
+        return "Batch %d deleted Successfully".formatted(batchId);
     }
 }
