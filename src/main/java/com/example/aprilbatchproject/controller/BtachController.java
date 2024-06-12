@@ -13,9 +13,15 @@ public class BtachController {
 
     @Autowired
     BatchService batchService;
-    @PostMapping("/newStudent")
-    public String createNewBatch(@RequestBody BatchDto batches){
-        batchService.createStudentsBatch(batches);
+//    @PostMapping("/newStudent")
+//    public String createNewBatch(@RequestBody BatchDto batches){
+//        batchService.createStudentsBatch(batches);
+//        return "New Student Data Save Successfully";
+//    }
+
+    @DeleteMapping("/batch/{batchId}")
+    public String deleteBatch(@PathVariable Long batchId){
+        batchService.deleteBatch(batchId);
         return "New Student Data Save Successfully";
     }
 }
