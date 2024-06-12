@@ -14,7 +14,7 @@ public interface CourseRepository extends JpaRepository<Courses, Long>{
 	@Query(value= "select distinct course_name from Courses")
 	List<String> findAllDistinctCourseNames();
 
-	@Query( nativeQuery = true, value = "select c.id from courses c where c.course_name = :courseName")
+	@Query( nativeQuery = true, value = "select * from courses c where c.course_name = :courseName")
 	Courses getCourseByName(String courseName);
 
 }
