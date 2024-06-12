@@ -6,12 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.aprilbatchproject.entity.Trainers;
+import com.example.aprilbatchproject.entity.Courses;
 
 @Repository
-public interface TrainerRepository extends JpaRepository<Trainers, Long>{
-	@Query ("Select distinct name from Trainers")
-	public List<String> findAllDistinctTrainerNames();
-
+public interface CourseRepository extends JpaRepository<Courses, Long>{
+	
+	@Query(value= "select distinct course_name from Courses")
+	List<String> findAllDistinctCourseNames();
 
 }

@@ -22,10 +22,13 @@ public class Batches {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date end_date;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "batch_student",
-            joinColumns = @JoinColumn(name = "batch_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id"))
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinTable(name = "batch_student",
+//            joinColumns = @JoinColumn(name = "batch_id"),
+//            inverseJoinColumns = @JoinColumn(name = "student_id"))
+//    private List<Students> students;
+
+    @ManyToMany(mappedBy = "batches")
     private List<Students> students;
 
     @Enumerated(EnumType.STRING)

@@ -1,25 +1,39 @@
 package com.example.aprilbatchproject.controller;
 
+import java.util.List;
 
+import com.example.aprilbatchproject.dto.StudentDTO;
+import com.example.aprilbatchproject.dto.TrainerDTO;
 import com.example.aprilbatchproject.entity.Trainers;
-import com.example.aprilbatchproject.service.TrainerService;
+import com.example.aprilbatchproject.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.aprilbatchproject.service.TrainerService;
 
 @RestController
 @RequestMapping("/trainers")
+
 public class TrainerController {
+	@Autowired
+	TrainerService trainerService;
+
+	@GetMapping("/getTrainers")
+	public ResponseEntity<ApiResponse<List<TrainerDTO>>> getAllTrainers() {
+		List<TrainerDTO> trainerNames = trainerService.getAllTrainers();
+		ApiResponse<List<TrainerDTO>> response = new ApiResponse<>(true, "Trainers fetched successfully", trainerNames);
+
+		return ResponseEntity.ok(response);
+	}
 
 
-    @Autowired
-    TrainerService trainerService;
 
-    @PostMapping("/createTrainers")
-    public String createTrainers(@RequestBody Trainers trainers){
-        trainerService.createTrainers(trainers);
-        return "sucesfully created";
-    }
+	@PostMapping("/createTrainers")
+	public ResponseEntity<ApiResponse<Trainers>> createTrainers(@RequestBody Trainers trainers) {
+		Trainers createdTrainers= trainerService.createTrainers(trainers);
+		return new ResponseEntity<>(new ApiResponse<>(true, "Trainers created successfully", createdTrainers), HttpStatus.CREATED);
+	}
 }
+
