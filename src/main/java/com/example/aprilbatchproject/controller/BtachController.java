@@ -25,6 +25,6 @@ public class BtachController {
     @PostMapping("/newBatch")
     public ResponseEntity<ApiResponse<BatchDTO>> createNewBatch(@RequestBody BatchDTO dto){
         BatchDTO createNewBatch = batchService.createBatch(dto);
-        return new ResponseEntity<>(new ApiResponse<>(true, "Student created successfully",createNewBatch ), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ApiResponse<>(true, "New Batch created successfully",createNewBatch ), HttpStatus.CREATED);
     }
 }
