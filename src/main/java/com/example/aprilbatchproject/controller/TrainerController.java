@@ -24,4 +24,5 @@ public class TrainerController {
 		return ResponseEntity.ok(response);
 	}
 
+
 }

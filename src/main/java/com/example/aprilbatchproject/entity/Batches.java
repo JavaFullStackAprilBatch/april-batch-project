@@ -118,4 +118,5 @@ public class Batches {
     public void setRecording(List<Recordings> recording) {
         this.recording = recording;
     }
+
 }

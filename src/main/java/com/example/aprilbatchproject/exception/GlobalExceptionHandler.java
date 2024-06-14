@@ -20,4 +20,11 @@ public class GlobalExceptionHandler {
         ApiResponse<String> response = new ApiResponse<>(false, ex.getMessage(), null);
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(BatchNotFoundException.class)
+   public ResponseEntity<ApiResponse<String>> handleBatchNotFoundException(BatchNotFoundException ex)
+   {
+       ApiResponse<String> response=new ApiResponse<>(false,ex.getMessage(),null);
+       return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+   }
 }

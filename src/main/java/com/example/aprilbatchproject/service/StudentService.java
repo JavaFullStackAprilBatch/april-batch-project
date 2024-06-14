@@ -1,17 +1,26 @@
 package com.example.aprilbatchproject.service;
 
 import com.example.aprilbatchproject.dto.StudentDTO;
+import com.example.aprilbatchproject.entity.Address;
 import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.entity.Students;
+import com.example.aprilbatchproject.exception.BatchNotFoundException;
+import com.example.aprilbatchproject.exception.ResourceNotFoundException;
+import com.example.aprilbatchproject.repository.AddressRepository;
 import com.example.aprilbatchproject.repository.BatchRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import com.example.aprilbatchproject.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 @Service
 public class StudentService {
 
@@ -20,34 +29,101 @@ public class StudentService {
     @Autowired
     BatchRepository batchRepository;
 
-    public StudentDTO createStudent(StudentDTO studentDTO) {
-        // Convert DTO to entity
-        Students student = new Students();
-        student.setName(studentDTO.getName());
-        student.setAddress(student.getAddress());
-        student.setEmail(studentDTO.getEmail());
-        student.setPhone(student.getPhone());
+    @Autowired
+    AddressRepository addressRepository;
 
-       List<String> batchNames =  studentDTO.getBatchNames();
 
-       List<Batches> batches = new ArrayList();
-       for(String batchName :batchNames){
-           Batches batch = batchRepository.findByBatchName(batchName);
-           batches.add(batch);
-       }
-       student.setBatches(batches);
+    @Transactional
+    //postend poitns
+    public StudentDTO createOrUpdateStudent(Students student, StudentDTO studentDTO) {
+        try {
+            student.setName(studentDTO.getName());
+            student.setEmail(studentDTO.getEmail());
+            student.setPhone(studentDTO.getPhone());
 
-        // Save entity
+            // Handle address
+            if (studentDTO.getAddress() != null) {
+                Address address = new Address();
+                address.setAddressLine1(studentDTO.getAddress().getAddressLine1());
+                address.setCity(studentDTO.getAddress().getCity());
+                address.setState(studentDTO.getAddress().getState());
+                address.setZipCode(studentDTO.getAddress().getZipCode());
+                addressRepository.save(address);
+                student.setAddress(address);
+            }
+
+            // Handle batches
+            List<String> batchNames = studentDTO.getBatchNames();
+            if (batchNames != null) {
+                List<Batches> batches = new ArrayList<>();
+                for (String batchName : batchNames) {
+                    Batches batch = batchRepository.findByBatchName(batchName);
+                    if (batch != null) {
+                        batches.add(batch);
+                    } else {
+                        throw new BatchNotFoundException("Batch Name not found: " + batchName);
+                    }
+                }
+                student.setBatches(batches);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to create student: " + e.getMessage());
+        }
+
         Students savedStudent = studentRepository.save(student);
 
-        // Convert entity back to DTO
-        return studentDTO;
+        return convertDTOtoStudents(savedStudent);
     }
 
+
+    /*get endpoints to get all studnets details*/
+
     public List<StudentDTO> getAllStudents() {
-//        return studentRepository.findAll().stream()
-//                .map(student -> new StudentDTO(student.getStudent_id(), student.getName(), null /* Add batch IDs */))
-//                .collect(Collectors.toList());
-        return null;
+        try {
+            return studentRepository.findAll().stream().
+                    map(this::convertDTOtoStudents).collect(Collectors.toList());
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+
+    }
+//getStduent details by id
+
+    public Optional<StudentDTO> getStudentById(Long id) {
+        try {
+            return studentRepository.findById(id).map(this::convertDTOtoStudents);
+        }catch (Exception e)
+        {
+            throw new ResourceNotFoundException(e.getMessage());
+        }
+
+    }
+
+
+    /* Convert studententity back to DTO */
+    public  StudentDTO convertDTOtoStudents(Students students) {
+        // logic to convert User to UserDTO
+        StudentDTO studentDTO=new StudentDTO(
+                students.getName(),
+                students.getAddress(),
+                students.getEmail(),
+                students.getPhone(),
+                students.getBatches().
+                        stream().map(Batches::getBatch_name).collect(Collectors.toList()));
+
+        return studentDTO;
+
+    }
+
+
+
+    public StudentDTO updateStudentById(Long id, StudentDTO studentDTO) {
+        Students student = studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
+        return createOrUpdateStudent(student, studentDTO);
     }
 }
+
+

@@ -1,6 +1,7 @@
 package com.example.aprilbatchproject.dto;
 
 import com.example.aprilbatchproject.entity.Address;
+import com.example.aprilbatchproject.entity.Batches;
 
 import java.util.List;
 
@@ -11,13 +12,14 @@ public class StudentDTO {
     private String phone;
     private List<String> batchNames;
 
-
-    public StudentDTO(String name, List<String> batchNames, String email, String phone) {
+    public StudentDTO(String name, Address address, String email, String phone, List<String> batchNames) {
         this.name = name;
-        this.batchNames = batchNames;
+        this.address = address;
         this.email = email;
         this.phone = phone;
+        this.batchNames = batchNames;
     }
+
 
     public void setPhone(String phone) {
         this.phone = phone;
@@ -30,6 +32,9 @@ public class StudentDTO {
     public void setBatchNames(List<String> batchNames) {
         this.batchNames = batchNames;
     }
+
+
+
 
     public String getEmail() {
         return email;
@@ -62,11 +67,5 @@ public class StudentDTO {
         this.name = name;
     }
 
-    public List<String> getBatchIds() {
-        return batchNames;
-    }
 
-    public void setBatchIds(List<String> batchIds) {
-        this.batchNames = batchIds;
-    }
 }
