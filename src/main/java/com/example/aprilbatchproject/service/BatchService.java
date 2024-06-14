@@ -5,6 +5,7 @@ import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.entity.Courses;
 import com.example.aprilbatchproject.entity.Trainers;
+import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.repository.BatchRepository;
 import com.example.aprilbatchproject.repository.CourseRepository;
 import com.example.aprilbatchproject.repository.TrainerRepository;
@@ -27,25 +28,30 @@ public class BatchService {
     public BatchDTO createBatch (BatchDTO dto) {
         Trainers trainer = null;
         Courses course = null;
-        try{
-             trainer = trainerRepository.getTrainerByName(dto.getTrainerName());
-             course = courseRepository.getCourseByName(dto.getCourseName());
-            Batches batch = new Batches();
+        Batches batch = new Batches();
+        try {
+            trainer = trainerRepository.getTrainerByName(dto.getTrainerName());
+            course = courseRepository.getCourseByName(dto.getCourseName());
+
             batch.setBatch_name(dto.getBatchName());
             batch.setStart_date(dto.getBatchStart());
             batch.setEnd_date(dto.getBatchEnd());
             batch.setCourses(course);
             batch.setTrainer(trainer);
 
-            Batches saveBatch =  batchRepository.save(batch);
-        }catch (Exception e){
-            if(trainer == null) {
-                throw new IllegalArgumentException("Trainer Name Not Found");
-            }
-            if(course == null){
-                throw new IllegalArgumentException("Course Name Not Found");
-            }
+        }catch (Exception e) {
+            throw new IllegalArgumentException(e);
         }
+
+        if(trainer == null){
+            throw new ResourceNotFoundException("Trainer Not Found");
+        }
+
+        if(course == null){
+            throw new ResourceNotFoundException("Course Not Found");
+        }
+
+        Batches saveBatch =  batchRepository.save(batch);
 
         return dto;
     }
