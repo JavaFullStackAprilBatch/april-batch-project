@@ -28,7 +28,21 @@ public class DataConverter {
         return trainerDTOs;
     }
 
+    /* Convert studententity back to DTO */
+    public static StudentDTO convertDTOtoStudents(Students students) {
+        // logic to convert User to UserDTO
+        StudentDTO studentDTO=new StudentDTO(
+                students.getName(),
+                students.getAddress(),
 
+                students.getEmail(),
+                students.getPhone(),
+                students.getBatches().
+                        stream().map(Batches::getBatch_name).collect(Collectors.toList()));
+
+        return studentDTO;
+
+    }
 
     
 

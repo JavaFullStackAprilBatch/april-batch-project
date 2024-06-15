@@ -8,6 +8,7 @@ import com.example.aprilbatchproject.exception.BatchNotFoundException;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.repository.AddressRepository;
 import com.example.aprilbatchproject.repository.BatchRepository;
+import com.example.aprilbatchproject.util.DataConverter;
 import jakarta.transaction.Transactional;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -72,17 +73,19 @@ public class StudentService {
         }
 
         Students savedStudent = studentRepository.save(student);
-
-        return convertDTOtoStudents(savedStudent);
+//return studentDTO; (Directly returs the data from the DTO)
+       return DataConverter.convertDTOtoStudents(savedStudent); //(Repo stored the data into the enitiy from there we can direct return the data)
     }
 
 
     /*get endpoints to get all studnets details*/
 
     public List<StudentDTO> getAllStudents() {
+
+
         try {
             return studentRepository.findAll().stream().
-                    map(this::convertDTOtoStudents).collect(Collectors.toList());
+                    map(DataConverter::convertDTOtoStudents).collect(Collectors.toList());
         } catch (DataAccessException e) {
             e.printStackTrace();
             return Collections.emptyList();
@@ -93,27 +96,11 @@ public class StudentService {
 
     public Optional<StudentDTO> getStudentById(Long id) {
         try {
-            return studentRepository.findById(id).map(this::convertDTOtoStudents);
+            return studentRepository.findById(id).map(DataConverter::convertDTOtoStudents);
         }catch (Exception e)
         {
             throw new ResourceNotFoundException(e.getMessage());
         }
-
-    }
-
-
-    /* Convert studententity back to DTO */
-    public  StudentDTO convertDTOtoStudents(Students students) {
-        // logic to convert User to UserDTO
-        StudentDTO studentDTO=new StudentDTO(
-                students.getName(),
-                students.getAddress(),
-                students.getEmail(),
-                students.getPhone(),
-                students.getBatches().
-                        stream().map(Batches::getBatch_name).collect(Collectors.toList()));
-
-        return studentDTO;
 
     }
 
