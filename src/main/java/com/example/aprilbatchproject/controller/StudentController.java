@@ -26,4 +26,11 @@ public class StudentController {
         List<StudentDTO> students = studentService.getAllStudents();
         return new ResponseEntity<>(new ApiResponse<>(true, "Students fetched successfully", students), HttpStatus.OK);
     }
+    
+    @GetMapping("/getStudentByName")
+    public ResponseEntity<ApiResponse<List<StudentDTO>>> getStudentsByName(@RequestParam String name){
+    	List<StudentDTO> students = studentService.getStudentByName(name);
+		return new ResponseEntity<>(new ApiResponse<>(true, "Students fetched successfully", students), HttpStatus.OK); 
+    	
+    }
 }

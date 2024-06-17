@@ -6,7 +6,10 @@ import com.example.aprilbatchproject.entity.Students;
 import com.example.aprilbatchproject.repository.BatchRepository;
 import org.springframework.stereotype.Service;
 import com.example.aprilbatchproject.repository.StudentRepository;
+import com.example.aprilbatchproject.response.ApiResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -50,4 +53,23 @@ public class StudentService {
 //                .collect(Collectors.toList());
         return null;
     }
+
+	public List<StudentDTO> getStudentByName(String name) {
+		
+		List<Students> studentsByName = studentRepository.findByName(name);
+		List<StudentDTO> studentsDTO = new ArrayList<StudentDTO>();
+		StudentDTO tempDTO;
+		List<Batches> batches;
+		for( int i=0; i<studentsByName.size() ; i++) {
+			List<String> batchNames = new ArrayList<String>();
+			batches = studentsByName.get(i).getBatches();
+			for (Batches batch :batches) {
+				batchNames.add(batch.getBatch_name());
+			}
+			tempDTO = new StudentDTO(studentsByName.get(i).getName(), batchNames, studentsByName.get(i).getEmail(), studentsByName.get(i).getPhone());
+			studentsDTO.add(tempDTO);
+		}
+				
+		return studentsDTO;
+	}
 }
