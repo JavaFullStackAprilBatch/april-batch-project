@@ -38,6 +38,7 @@ public class BatchService {
             batch.setEnd_date(dto.getBatchEnd());
             batch.setCourses(course);
             batch.setTrainer(trainer);
+            batch.setStatus(dto.getBatchStatus());
 
         }catch (Exception e) {
             throw new IllegalArgumentException(e);

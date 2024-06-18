@@ -26,4 +26,11 @@ public class StudentController {
         List<StudentDTO> students = studentService.getAllStudents();
         return new ResponseEntity<>(new ApiResponse<>(true, "Students fetched successfully", students), HttpStatus.OK);
     }
+
+    @PutMapping("/updatestudentbyname")
+    public ResponseEntity<ApiResponse<StudentDTO>> updateStudentByName(@RequestParam String name, @RequestBody StudentDTO studentDTO){
+        StudentDTO updateStudent = studentService.getStudentByName(name, studentDTO);
+
+        return new ResponseEntity<>(new ApiResponse<>(true, "Students Updated successfully", updateStudent), HttpStatus.OK);
+    }
 }

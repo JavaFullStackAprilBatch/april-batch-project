@@ -6,7 +6,7 @@ import java.util.List;
 
 public class StudentDTO {
     private String name;
-    private Address address;
+    private AddressDTO address;
     private String email;
     private String phone;
     private List<String> batchNames;
@@ -46,11 +46,12 @@ public class StudentDTO {
 
     // Getters and setters
 
-    public Address getAddress() {
+
+    public AddressDTO getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(AddressDTO address) {
         this.address = address;
     }
 
@@ -60,13 +61,5 @@ public class StudentDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<String> getBatchIds() {
-        return batchNames;
-    }
-
-    public void setBatchIds(List<String> batchIds) {
-        this.batchNames = batchIds;
     }
 }

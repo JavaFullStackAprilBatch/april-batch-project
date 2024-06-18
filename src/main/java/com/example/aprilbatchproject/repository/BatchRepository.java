@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface BatchRepository extends JpaRepository<Batches, Long> {
 
 
-    @Query("select id from Batches where batch_name=:name")
-    public Batches findByBatchName(String name);
+    @Query(nativeQuery = true, value = "select * from batches b where b.batch_name= :batchName")
+    public Batches findByBatchName(String batchName);
 }
