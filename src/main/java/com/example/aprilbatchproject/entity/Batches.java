@@ -39,6 +39,20 @@ public class Batches {
     @JoinColumn(name = "courses_id")
     private Courses courses;
 
+    public Batches() {}
+
+    Batches(long id, String batch_name, String start_date, String end_date, List<Students> students, StatusType status, Courses courses, Trainers trainer, List<Recordings> recording) {
+        this.id = id;
+        this.batch_name = batch_name;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.students = students;
+        this.status = status;
+        this.courses = courses;
+        this.trainer = trainer;
+        this.recording = recording;
+    }
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "trainer_id")
     private Trainers trainer;

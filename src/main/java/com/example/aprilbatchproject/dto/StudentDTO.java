@@ -7,18 +7,29 @@ import java.util.List;
 
 public class StudentDTO {
     private String name;
-    private Address address;
-    private String email;
+
+    // private Address address;
+    private AddressDTO address;
+   private String email;
     private String phone;
     private List<String> batchNames;
-
-    public StudentDTO(String name, Address address, String email, String phone, List<String> batchNames) {
+    public  StudentDTO(){}
+    public StudentDTO(String name, AddressDTO address, String email, String phone, List<String> batchNames) {
         this.name = name;
         this.address = address;
         this.email = email;
         this.phone = phone;
         this.batchNames = batchNames;
     }
+
+    public AddressDTO getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressDTO address) {
+        this.address = address;
+    }
+
 
 
     public void setPhone(String phone) {
@@ -51,13 +62,13 @@ public class StudentDTO {
 
     // Getters and setters
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+//    public Address getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(Address address) {
+//        this.address = address;
+//    }
 
     public String getName() {
         return name;

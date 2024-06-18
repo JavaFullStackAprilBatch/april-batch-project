@@ -20,10 +20,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class StudentService {
+
 
     @Autowired
     private StudentRepository studentRepository;
@@ -36,7 +36,8 @@ public class StudentService {
 
     @Transactional
     //postend poitns
-    public StudentDTO createOrUpdateStudent(Students student, StudentDTO studentDTO) {
+    public StudentDTO createOrUpdateStudent( Students student ,StudentDTO studentDTO) {
+        //Students student=new Students();
         try {
             student.setName(studentDTO.getName());
             student.setEmail(studentDTO.getEmail());
@@ -78,6 +79,7 @@ public class StudentService {
     }
 
 
+
     /*get endpoints to get all studnets details*/
 
     public List<StudentDTO> getAllStudents() {
@@ -104,12 +106,58 @@ public class StudentService {
 
     }
 
+//getstudentdetails by name
+    public List<StudentDTO> getStudentsByname(String name)
+    {
+        try {
+            List<Students> students=studentRepository.findByName(name);
+            return students.stream().map(DataConverter::convertDTOtoStudents).collect(Collectors.toList());
+        }catch (Exception e)
+        {
+
+        throw new ResourceNotFoundException(e.getMessage());
+        }
 
 
+    }
+//UpdateStudent By id
     public StudentDTO updateStudentById(Long id, StudentDTO studentDTO) {
-        Students student = studentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
-        return createOrUpdateStudent(student, studentDTO);
+        Students student = studentRepository.findById(id).orElseThrow(()-> new RuntimeException("Student id not found"+ id));
+      createOrUpdateStudent(student,studentDTO);
+      Students updatedstudent=studentRepository.save(student);
+      return DataConverter.convertDTOtoStudents(updatedstudent);
+    }
+
+        public StudentDTO updateStudentByName(String name, StudentDTO studentDTO)
+    {
+        List <Students> studentsList=studentRepository.findByName(name);
+        if(studentsList.isEmpty())
+        {
+            throw new RuntimeException("Student name not found"+ name);
+        }
+
+        Students student=studentsList.get(0); //get always first name by assumption
+        createOrUpdateStudent(student,studentDTO);
+        Students updatestStudent=studentRepository.save(student);
+
+        return DataConverter.convertDTOtoStudents(updatestStudent);
+
+    }
+
+
+
+    //Delete Student By id
+
+    public void deleteById(Long id) {
+
+         studentRepository.deleteById(id);
+    }
+
+    @Transactional
+    //Delete Student By Name
+    public void deleteByName(String name) {
+        studentRepository.deleteByName(name);
+
     }
 }
 

@@ -46,6 +46,22 @@ public class StudentController {
         }
     }
 
+    @GetMapping("/getstudentbyname")
+    public ResponseEntity<ApiResponse<List<StudentDTO>>> getStudentByName(@RequestParam String name)
+    {
+        List<StudentDTO> studentDTOByName= studentService.getStudentsByname(name);
+        if(studentDTOByName.isEmpty()){
+            ApiResponse<List<StudentDTO>> response = new ApiResponse<>(false,"Students name not found", studentDTOByName);
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }else {
+            ApiResponse<List<StudentDTO>> response = new ApiResponse<>(true,"Students data Retrived based on the name", studentDTOByName);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+
+    }
+
+
     @PutMapping("/updatestudentbyid/{id}")
     public ResponseEntity<ApiResponse<StudentDTO>> updateStudentById(@PathVariable Long id, @RequestBody StudentDTO studentDTO)
     {
@@ -53,6 +69,33 @@ public class StudentController {
        ApiResponse<StudentDTO> response=new ApiResponse<>(true,"student data updated",studentDTObyid);
        return new ResponseEntity<>(response, HttpStatus.OK);
     }
- 
+
+    @PutMapping("/updatestudentbyname")
+    public ResponseEntity<ApiResponse<StudentDTO>> updateStudentByName(@RequestParam String name,@RequestBody StudentDTO studentDTO)
+    {
+        StudentDTO studentDTObyName=studentService.updateStudentByName(name,studentDTO);
+        ApiResponse<StudentDTO> response=new ApiResponse<>(true,"student data updated",studentDTObyName);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    //Delete By id
+    @DeleteMapping("/deletebyid/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteById(@PathVariable Long id)
+    {
+
+         studentService.deleteById(id);
+        ApiResponse<Void> response=new ApiResponse<>(true,"Student detail deleted succesfully",null);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+
+    }
+
+    @DeleteMapping("/deletebyname")
+    public ResponseEntity<ApiResponse<Void>> deleteByName(@RequestParam String name)
+    {
+        studentService.deleteByName(name);
+        ApiResponse<Void> response=new ApiResponse<>(true,"Student detail deleted succesfully",null);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+
+    }
 
 }
