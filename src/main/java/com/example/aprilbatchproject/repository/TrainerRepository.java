@@ -13,4 +13,7 @@ public interface TrainerRepository extends JpaRepository<Trainers, Long>{
 	@Query ("Select distinct name from Trainers")
 	public List<String> findAllDistinctTrainerNames();
 
+	@Query( nativeQuery = true, value = "select * from trainers t where t.name = :trainerName")
+	Trainers getTrainerByName(String trainerName);
+
 }

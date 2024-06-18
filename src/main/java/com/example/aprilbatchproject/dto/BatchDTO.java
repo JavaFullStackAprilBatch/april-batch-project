@@ -1,36 +1,53 @@
 package com.example.aprilbatchproject.dto;
 
-import java.util.List;
+import com.example.aprilbatchproject.entity.Courses;
+import com.example.aprilbatchproject.entity.Trainers;
 
 public class BatchDTO {
-    private Long id;
-    private String name;
-    private List<Long> studentIds;
 
-    // Getters and setters
+    private String batchName;
+    private String batchStart;
+    private String batchEnd;
+    private String courseName;
+    private String trainerName;
 
-    public Long getId() {
-        return id;
+    public String getBatchName() {
+        return batchName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setBatchName(String batchName) {
+        this.batchName = batchName;
     }
 
-    public String getName() {
-        return name;
+    public String getBatchStart() {
+        return batchStart;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBatchStart(String batchStart) {
+        this.batchStart = batchStart;
     }
 
-    public List<Long> getStudentIds() {
-        return studentIds;
+    public String getBatchEnd() {
+        return batchEnd;
     }
 
-    public void setStudentIds(List<Long> studentIds) {
-        this.studentIds = studentIds;
+    public void setBatchEnd(String batchEnd) {
+        this.batchEnd = batchEnd;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public String getTrainerName() {
+        return trainerName;
+    }
+
+    public void setTrainerName(String trainerName) {
+        this.trainerName = trainerName;
     }
 }
-
