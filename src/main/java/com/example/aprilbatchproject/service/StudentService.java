@@ -7,6 +7,7 @@ import com.example.aprilbatchproject.entity.Students;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.repository.AddressRepository;
 import com.example.aprilbatchproject.repository.BatchRepository;
+import com.example.aprilbatchproject.util.StudentUtil;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 import com.example.aprilbatchproject.repository.StudentRepository;
@@ -25,6 +26,8 @@ public class StudentService {
     BatchRepository batchRepository;
     @Autowired
     AddressRepository addressRepository;
+    @Autowired
+    StudentUtil studentUtil;
 
     public StudentDTO createStudent(StudentDTO studentDTO) {
         // Convert DTO to entity
@@ -34,8 +37,7 @@ public class StudentService {
         student.setEmail(studentDTO.getEmail());
         student.setPhone(student.getPhone());
 
-        List<String> batchNames = studentDTO.getBatchNames();
-        List<Batches> batches = getBatchNames(batchNames);
+        List<Batches> batches = studentUtil.GetBatchNames(studentDTO);
         student.setBatches(batches);
 
         // Save entity
@@ -59,13 +61,12 @@ public class StudentService {
 
         try {
             existingStudent = studentRepository.findByStudentName(name);
-            address = getStudentAddress(studentDTO,existingStudent.getAddress());
+            address = studentUtil.GetStudentAddress(studentDTO, existingStudent.getAddress());
             existingStudent.setAddress(address);
             existingStudent.setEmail(studentDTO.getEmail());
             existingStudent.setPhone(studentDTO.getPhone());
 
-            List<String> batchNames = studentDTO.getBatchNames();
-            batches = getBatchNames(batchNames);
+            batches = studentUtil.GetBatchNames(studentDTO);
             existingStudent.setBatches(batches);
 
         } catch (Exception e) {
@@ -78,45 +79,13 @@ public class StudentService {
         if(batches.isEmpty()){
             throw new ResourceNotFoundException("No Batch details found for this student: " + name);
         }
-
         if(address == null){
             throw new ResourceNotFoundException("No Address details found for this student: " + name);
         }
-
         // Save entity
         Students savedStudent = studentRepository.save(existingStudent);
 
         return studentDTO;
-    }
-
-    private List<Batches> getBatchNames(List<String> batchNames){
-
-        List<Batches> batches = new ArrayList();
-        for (String batchName : batchNames) {
-            Batches batch = batchRepository.findByBatchName(batchName);
-            batches.add(batch);
-        }
-        return batches;
-    }
-
-    private Address getStudentAddress( StudentDTO dto, Address address){
-        Address changeAddress = null;
-       if (address != null) {
-           changeAddress = addressRepository.findByAddressId(address.getAddress_id());
-           changeAddress.setAddressLine1(dto.getAddress().getAddressLine1());
-           changeAddress.setCity(dto.getAddress().getCity());
-           changeAddress.setState(dto.getAddress().getState());
-           changeAddress.setZipCode(dto.getAddress().getZipCode());
-       } else{
-            Address newAddress = new Address();
-            newAddress.setAddressLine1(dto.getAddress().getAddressLine1());
-            newAddress.setCity(dto.getAddress().getCity());
-            newAddress.setState(dto.getAddress().getState());
-            newAddress.setZipCode(dto.getAddress().getZipCode());
-            return newAddress;
-        }
-
-    return changeAddress;
     }
 
 }
