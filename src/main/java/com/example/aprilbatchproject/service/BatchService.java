@@ -10,7 +10,10 @@ import com.example.aprilbatchproject.repository.BatchRepository;
 import com.example.aprilbatchproject.repository.CourseRepository;
 import com.example.aprilbatchproject.repository.TrainerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class BatchService {
@@ -20,12 +23,13 @@ public class BatchService {
     TrainerRepository trainerRepository;
     @Autowired
     CourseRepository courseRepository;
-    public String createStudentsBatch(Batches batches){
+
+    public String createStudentsBatch(Batches batches) {
         batchRepository.save(batches);
         return "Data saved";
     }
 
-    public BatchDTO createBatch (BatchDTO dto) {
+    public BatchDTO createBatch(BatchDTO dto) {
         Trainers trainer = null;
         Courses course = null;
         Batches batch = new Batches();
@@ -40,22 +44,29 @@ public class BatchService {
             batch.setTrainer(trainer);
             batch.setStatus(dto.getBatchStatus());
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
 
-        if(trainer == null){
+        if (trainer == null) {
             throw new ResourceNotFoundException("Trainer Not Found");
         }
 
-        if(course == null){
+        if (course == null) {
             throw new ResourceNotFoundException("Course Not Found");
         }
 
-        Batches saveBatch =  batchRepository.save(batch);
+        Batches saveBatch = batchRepository.save(batch);
 
         return dto;
     }
 
+    public List<String> getListOfbatchnames() {
+        try {
+            return batchRepository.findListOfBatchNames();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to fetch batch names", e);
+        }
 
+    }
 }
