@@ -11,7 +11,7 @@ public class StudentDTO {
     private String phone;
     private List<String> batchNames;
 
-
+    public  StudentDTO(){};
     public StudentDTO(String name, List<String> batchNames, String email, String phone) {
         this.name = name;
         this.batchNames = batchNames;
