@@ -17,5 +17,5 @@ public interface BatchRepository extends JpaRepository<Batches, Long> {
     public Batches findByBatchName(String batchName);
 
     @Query("select b from Batches b")
-    public List<Batches> findListOfBatchNames();
+    public List<Batches> findListOfBatches();
 }
