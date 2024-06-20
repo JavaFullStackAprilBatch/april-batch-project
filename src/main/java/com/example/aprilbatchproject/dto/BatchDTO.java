@@ -7,6 +7,11 @@ public class BatchDTO {
     private String name;
     private List<Long> studentIds;
 
+    public BatchDTO( Long id, String name) {
+        this.name = name;
+        this.id = id;
+    }
+
     // Getters and setters
 
     public Long getId() {

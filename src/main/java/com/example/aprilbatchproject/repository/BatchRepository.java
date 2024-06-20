@@ -17,4 +17,7 @@ public interface BatchRepository extends JpaRepository<Batches, Long> {
     @Query("select id from Batches where batch_name=:name")
     public Batches findByBatchName(String name);
 
+    @Query("select id,batch_name from Batches where status=Completed")
+    public List<Batches> findByBatchStatus();
+
 }

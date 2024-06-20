@@ -17,23 +17,26 @@ import com.example.aprilbatchproject.service.TrainerService;
 @RequestMapping("/trainers")
 
 public class TrainerController {
-	@Autowired
-	TrainerService trainerService;
+    @Autowired
+    TrainerService trainerService;
 
-	@GetMapping("/getTrainers")
-	public ResponseEntity<ApiResponse<List<TrainerDTO>>> getAllTrainers() {
-		List<TrainerDTO> trainerNames = trainerService.getAllTrainers();
-		ApiResponse<List<TrainerDTO>> response = new ApiResponse<>(true, "Trainers fetched successfully", trainerNames);
-
-		return ResponseEntity.ok(response);
-	}
-
+    @GetMapping("/getTrainers")
+    public ResponseEntity<ApiResponse<List<TrainerDTO>>> getAllTrainers() {
+        List<TrainerDTO> trainerNames = trainerService.getAllTrainers();
+        ApiResponse<List<TrainerDTO>> response = new ApiResponse<>(true, "Trainers fetched successfully", trainerNames);
+        return ResponseEntity.ok(response);
+    }
 
 
-	@PostMapping("/createTrainers")
-	public ResponseEntity<ApiResponse<Trainers>> createTrainers(@RequestBody Trainers trainers) {
-		Trainers createdTrainers= trainerService.createTrainers(trainers);
-		return new ResponseEntity<>(new ApiResponse<>(true, "Trainers created successfully", createdTrainers), HttpStatus.CREATED);
-	}
+    @PostMapping("/createTrainers")
+    public ResponseEntity<ApiResponse<TrainerDTO>> createTrainers(@RequestBody TrainerDTO trainerDTO) {
+        TrainerDTO createdTrainers = trainerService.createTrainers(trainerDTO);
+        if (createdTrainers != null)
+            return new ResponseEntity<>(new ApiResponse<>(true, "Trainers created successfully", createdTrainers), HttpStatus.CREATED);
+        else
+            return new ResponseEntity<>(new ApiResponse<>(false, "Failed to insert trainers", createdTrainers), HttpStatus.BAD_REQUEST);
+
+    }
+
 }
 

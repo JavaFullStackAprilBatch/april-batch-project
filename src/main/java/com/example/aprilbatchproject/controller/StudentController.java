@@ -1,5 +1,7 @@
 package com.example.aprilbatchproject.controller;
+import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.dto.StudentDTO;
+import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.response.ApiResponse;
 import com.example.aprilbatchproject.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,4 +28,11 @@ public class StudentController {
         List<StudentDTO> students = studentService.getAllStudents();
         return new ResponseEntity<>(new ApiResponse<>(true, "Students fetched successfully", students), HttpStatus.OK);
     }
+
+ /*   @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<StudentDTO>> getStudentById(@PathVariable Long id){
+        StudentDTO student = studentService.getStudentById(id);
+        return new ResponseEntity<>(new ApiResponse<>(true,"Student fethed successfully",student),HttpStatus.OK);
+    }*/
+
 }

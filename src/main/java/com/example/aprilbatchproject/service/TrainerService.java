@@ -14,21 +14,25 @@ import com.example.aprilbatchproject.repository.TrainerRepository;
 
 @Service
 public class TrainerService {
-	@Autowired
-	TrainerRepository trainerRepository;
-	
-	public List<TrainerDTO>  getAllTrainers(){
-		List<String> trainerNames = trainerRepository.findAllDistinctTrainerNames();
-		if(trainerNames.isEmpty())
-			throw new ResourceNotFoundException("No Trainer found");
-		return DataConverter.convertToTrainerDTOs(trainerNames);
-	}
+    @Autowired
+    TrainerRepository trainerRepository;
+
+    public List<TrainerDTO> getAllTrainers() {
+        List<String> trainerNames = trainerRepository.findAllDistinctTrainerNames();
+        if (trainerNames.isEmpty())
+            throw new ResourceNotFoundException("No Trainer found");
+        return DataConverter.convertToTrainerDTOs(trainerNames);
+    }
 
 
-public Trainers createTrainers(Trainers trainers) {
-	return trainerRepository.save(trainers);
-
-
-	}
-
+    public TrainerDTO createTrainers(TrainerDTO trainerDTO) {
+        Trainers trainers = DataConverter.convertTrainerDtoToTrainer(trainerDTO);
+        Trainers trainers1 = trainerRepository.save(trainers);
+        if (trainers1.getName() != null)
+            return trainerDTO;
+        else
+            return null;
+    }
 }
+
+

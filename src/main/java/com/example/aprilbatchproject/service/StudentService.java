@@ -28,14 +28,14 @@ public class StudentService {
         student.setEmail(studentDTO.getEmail());
         student.setPhone(student.getPhone());
 
-       List<String> batchNames =  studentDTO.getBatchNames();
+        List<String> batchNames = studentDTO.getBatchNames();
 
-       List<Batches> batches = new ArrayList();
-       for(String batchName :batchNames){
-           Batches batch = batchRepository.findByBatchName(batchName);
-           batches.add(batch);
-       }
-       student.setBatches(batches);
+        List<Batches> batches = new ArrayList();
+        for (String batchName : batchNames) {
+            Batches batch = batchRepository.findByBatchName(batchName);
+            batches.add(batch);
+        }
+        student.setBatches(batches);
 
         // Save entity
         Students savedStudent = studentRepository.save(student);
@@ -50,4 +50,13 @@ public class StudentService {
 //                .collect(Collectors.toList());
         return null;
     }
+
+  /*  public StudentDTO getStudentById(Long id) {
+      *//*  Students student = studentRepository.findById(id).get();
+        List<Batches> batches =student.getBatches();
+
+       // (String name, List<String> batchNames, String email, String phone)
+        return new StudentDTO(student.getName(),student.getBatches(),student.getEmail(), student.getPhone() );*//*
+        return null;
+    }*/
 }
