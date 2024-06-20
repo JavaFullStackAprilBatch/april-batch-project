@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BatchService {
@@ -61,9 +62,16 @@ public class BatchService {
         return dto;
     }
 
-    public List<String> getListOfbatchnames() {
+    public List<BatchDTO> getListOfBatchNames() {
         try {
-            return batchRepository.findListOfBatchNames();
+          return  batchRepository.findListOfBatchNames()
+                    .stream()
+                    .map(batch -> {
+                        BatchDTO batchDTO = new BatchDTO();
+                        batchDTO.setBatchName(batch.getBatch_name());
+                        return batchDTO;
+                    }).collect(Collectors.toList());
+
         } catch (Exception e) {
             throw new RuntimeException("Failed to fetch batch names", e);
         }

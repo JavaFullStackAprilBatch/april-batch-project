@@ -1,7 +1,10 @@
 package com.example.aprilbatchproject.dto;
 
 import com.example.aprilbatchproject.entity.StatusType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BatchDTO {
 
     private String batchName;

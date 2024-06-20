@@ -32,8 +32,8 @@ public class BtachController {
     }
 
     @GetMapping("/batchNames")
-    public ResponseEntity<ApiResponse<List<String>>> getListOfBatchnames() {
-            List<String> batchNames = batchService.getListOfbatchnames();
+    public ResponseEntity<ApiResponse<List<BatchDTO>>> getListOfBatchNames() {
+            List<BatchDTO> batchNames = batchService.getListOfBatchNames();
             return new ResponseEntity<>(new ApiResponse<>(true, "List of batch names fetched successfully", batchNames), HttpStatus.OK);
 
     }

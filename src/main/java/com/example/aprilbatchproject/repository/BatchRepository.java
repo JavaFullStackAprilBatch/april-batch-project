@@ -1,6 +1,7 @@
 package com.example.aprilbatchproject.repository;
 
 
+import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.entity.Batches;
 import org.hibernate.engine.jdbc.batch.spi.Batch;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +16,6 @@ public interface BatchRepository extends JpaRepository<Batches, Long> {
     @Query(nativeQuery = true, value = "select * from batches b where b.batch_name= :batchName")
     public Batches findByBatchName(String batchName);
 
-    @Query("select b.batch_name from Batches b")
-    public List<String> findListOfBatchNames();
+    @Query("select b from Batches b")
+    public List<Batches> findListOfBatchNames();
 }
