@@ -64,7 +64,7 @@ public class BatchService {
 
     public List<BatchDTO> getListOfBatchNames() {
         try {
-          return  batchRepository.findListOfBatches()
+          return  batchRepository.findAll()
                     .stream()
                     .map(batch -> {
                         BatchDTO batchDTO = new BatchDTO();
