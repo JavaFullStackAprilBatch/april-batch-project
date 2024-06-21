@@ -32,7 +32,7 @@ public class Batches {
     private List<Students> students;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "statusType")
+    @Column(name = "status_type")
     private StatusType status;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

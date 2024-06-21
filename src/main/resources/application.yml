@@ -9,7 +9,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        default_schema: public
+        default_schema: aprilbatch
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
         ddl-auto: none

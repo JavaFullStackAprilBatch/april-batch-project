@@ -28,7 +28,7 @@ public class DataConverter {
     public static List<BatchDTO> convertBatchsToBatchDto(List<Batches> batches) {
         List<BatchDTO> batchDTOS = new ArrayList<BatchDTO>();
         for (Batches batch: batches) {
-            batchDTOS.add(new BatchDTO(Long.valueOf(batch.getId()), batch.getBatch_name()));
+            batchDTOS.add(new BatchDTO(batch.getBatch_name()));
         }
         return batchDTOS;
     }
