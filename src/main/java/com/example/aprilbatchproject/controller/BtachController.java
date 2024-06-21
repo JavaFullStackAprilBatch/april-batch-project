@@ -5,6 +5,9 @@ import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.response.ApiResponse;
 import com.example.aprilbatchproject.service.BatchService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,5 +29,11 @@ public class BtachController {
     public ResponseEntity<ApiResponse<BatchDTO>> createNewBatch(@RequestBody BatchDTO dto){
         BatchDTO createNewBatch = batchService.createBatch(dto);
         return new ResponseEntity<>(new ApiResponse<>(true, "New Batch created successfully",createNewBatch ), HttpStatus.CREATED);
+    }
+    
+    @GetMapping("/getComplBatchDetails")
+    public ResponseEntity<ApiResponse<List<BatchDTO>>> findAllCompletedBatchDetail(){
+    	List<BatchDTO> batches = batchService.findAllCompletedBatchDetail();
+    	return new ResponseEntity<>(new ApiResponse<>(true, "Success ", batches), HttpStatus.OK);
     }
 }

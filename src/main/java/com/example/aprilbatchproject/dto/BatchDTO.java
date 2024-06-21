@@ -1,7 +1,6 @@
 package com.example.aprilbatchproject.dto;
 
-import com.example.aprilbatchproject.entity.Courses;
-import com.example.aprilbatchproject.entity.Trainers;
+import com.example.aprilbatchproject.entity.StatusType;
 
 public class BatchDTO {
 
@@ -10,6 +9,7 @@ public class BatchDTO {
     private String batchEnd;
     private String courseName;
     private String trainerName;
+    private StatusType batchStatus;
 
     public String getBatchName() {
         return batchName;
@@ -49,5 +49,13 @@ public class BatchDTO {
 
     public void setTrainerName(String trainerName) {
         this.trainerName = trainerName;
+    }
+
+    public StatusType getBatchStatus() {
+        return batchStatus;
+    }
+
+    public void setBatchStatus(StatusType batchStatus) {
+        this.batchStatus = batchStatus;
     }
 }
