@@ -4,6 +4,7 @@ package com.example.aprilbatchproject.service;
 import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.entity.Courses;
+import com.example.aprilbatchproject.entity.StatusType;
 import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.repository.BatchRepository;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,13 +66,28 @@ public class BatchService {
 
     public List<BatchDTO> getListOfBatchNames() {
         try {
-          return  batchRepository.findAll()
+         return  batchRepository.findAll()
                     .stream()
-                    .map(batch -> {
-                        BatchDTO batchDTO = new BatchDTO();
-                        batchDTO.setBatchName(batch.getBatch_name());
+                   .map(batch -> {
+                        BatchDTO batchDTO = new BatchDTO(batch.getBatch_name());
                         return batchDTO;
                     }).collect(Collectors.toList());
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to fetch batch names", e);
+        }
+
+    }
+    public List<BatchDTO> getListOfBatchNamesByStatus(StatusType statusType) {
+       try {
+            List<BatchDTO> list = new ArrayList<>();
+            if (statusType == null) {
+                return list;
+            }
+            return batchRepository.findByStatus(statusType).stream().map(batch -> {
+                BatchDTO batchDTO = new BatchDTO(batch.getBatch_name());
+               return batchDTO;
+            }).collect(Collectors.toList());
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to fetch batch names", e);
