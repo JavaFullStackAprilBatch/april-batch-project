@@ -9,8 +9,11 @@ import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.repository.BatchRepository;
 import com.example.aprilbatchproject.repository.CourseRepository;
 import com.example.aprilbatchproject.repository.TrainerRepository;
+import com.example.aprilbatchproject.util.DataConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class BatchService {
@@ -55,6 +58,12 @@ public class BatchService {
         Batches saveBatch =  batchRepository.save(batch);
 
         return dto;
+    }
+
+    public List<BatchDTO> getCompletedBatchs() {
+        List<Batches> batches = batchRepository.findByBatchStatus();
+        List<BatchDTO> batchDTOS =  DataConverter.convertBatchsToBatchDto(batches);
+        return batchDTOS;
     }
 
 

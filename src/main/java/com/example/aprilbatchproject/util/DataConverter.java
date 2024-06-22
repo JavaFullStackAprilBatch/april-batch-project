@@ -1,7 +1,10 @@
 package com.example.aprilbatchproject.util;
 
+import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.dto.CourseDTO;
 import com.example.aprilbatchproject.dto.TrainerDTO;
+import com.example.aprilbatchproject.entity.Batches;
+import com.example.aprilbatchproject.entity.Trainers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,5 +23,24 @@ public class DataConverter {
             trainerDTOs.add(new TrainerDTO(courseName));
         }
         return trainerDTOs;
+
+    }
+
+    public static Trainers convertTrainerDtoToTrainer(TrainerDTO trainerDTO) {
+        Trainers trainers = new Trainers();
+        trainers.setName(trainerDTO.getName());
+        trainers.setEmail(trainerDTO.getTrainerEmail());
+        trainers.setPhone(trainerDTO.getTrainerPhone());
+        trainers.setSpecialization(trainerDTO.getTrainerSpecialization());
+        return trainers;
+    }
+
+
+    public static List<BatchDTO> convertBatchsToBatchDto(List<Batches> batches) {
+        List<BatchDTO> batchDTOS = new ArrayList<BatchDTO>();
+        for (Batches batch : batches) {
+            batchDTOS.add(new BatchDTO(batch.getBatch_name()));
+        }
+        return batchDTOS;
     }
 }

@@ -1,8 +1,14 @@
 package com.example.aprilbatchproject.dto;
 
 import com.example.aprilbatchproject.entity.StatusType;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class BatchDTO {
+
+    public BatchDTO(String batchName) {
+        this.batchName = batchName;
+    }
 
     private String batchName;
     private String batchStart;

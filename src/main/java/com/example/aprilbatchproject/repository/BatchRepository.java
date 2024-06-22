@@ -7,10 +7,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BatchRepository extends JpaRepository<Batches, Long> {
 
 
     @Query(nativeQuery = true, value = "select * from batches b where b.batch_name= :batchName")
     public Batches findByBatchName(String batchName);
+
+
+    @Query("select b from Batches b where b.status=Completed")
+    public List<Batches> findByBatchStatus();
 }
