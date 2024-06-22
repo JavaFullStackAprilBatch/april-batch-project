@@ -39,28 +39,17 @@ public class StudentService {
 
             // Handle address
             if (studentDTO.getAddress() != null) {
-                Address address = new Address();
-                address.setAddressLine1(studentDTO.getAddress().getAddressLine1());
-                address.setCity(studentDTO.getAddress().getCity());
-                address.setState(studentDTO.getAddress().getState());
-                address.setZipCode(studentDTO.getAddress().getZipCode());
+                Address address=studentUtil.GetStudentAddress(studentDTO,student.getAddress());
                 addressRepository.save(address);
                 student.setAddress(address);
             }
 
             // Handle batches
+
             List<String> batchNames = studentDTO.getBatchNames();
             if (batchNames != null) {
-                List<Batches> batches = new ArrayList<>();
-                for (String batchName : batchNames) {
-                    Batches batch = batchRepository.findByBatchName(batchName);
-                    if (batch != null) {
-                        batches.add(batch);
-                    } else {
-                        throw new BatchNotFoundException("Batch Name not found: " + batchName);
-                    }
-                }
-                student.setBatches(batches);
+                List<Batches> batches=studentUtil.GetBatchNames(studentDTO);
+                 student.setBatches(batches);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,40 +76,7 @@ public class StudentService {
         return DataConverter.convertDTOtoStudents(updatedstudent);
     }
 
-    //
 
-    public StudentDTO getStudentByName(String name, StudentDTO studentDTO) {
-        Students existingStudent = null;
-        List<Batches> batches;
-        Address address = null;
 
-        try {
-            existingStudent = studentRepository.findByStudentName(name);
-            address = studentUtil.GetStudentAddress(studentDTO, existingStudent.getAddress());
-            existingStudent.setAddress(address);
-            existingStudent.setEmail(studentDTO.getEmail());
-            existingStudent.setPhone(studentDTO.getPhone());
-
-            batches = studentUtil.GetBatchNames(studentDTO);
-            existingStudent.setBatches(batches);
-
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e);
-        }
-
-        if (existingStudent == null) {
-            throw new ResourceNotFoundException("No details found with student name: " + name);
-        }
-        if(batches.isEmpty()){
-            throw new ResourceNotFoundException("No Batch details found for this student: " + name);
-        }
-        if(address == null){
-            throw new ResourceNotFoundException("No Address details found for this student: " + name);
-        }
-        // Save entity
-        Students savedStudent = studentRepository.save(existingStudent);
-
-        return studentDTO;
-    }
 
 }
