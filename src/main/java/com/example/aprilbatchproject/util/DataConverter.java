@@ -5,6 +5,7 @@ import com.example.aprilbatchproject.dto.CourseDTO;
 import com.example.aprilbatchproject.dto.TrainerDTO;
 import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.entity.Courses;
+import com.example.aprilbatchproject.entity.Students;
 import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import org.hibernate.engine.jdbc.batch.spi.Batch;
@@ -27,6 +28,39 @@ public class DataConverter {
         }
         return trainerDTOs;
     }
+    //conver the batches to DTO to fetch the name
+
+    public static BatchDTO convertDTOtoBatches(Batches batches)
+    {
+        BatchDTO batchDTO=new BatchDTO();
+
+        batchDTO.setBatchName(batches.getBatch_name());
+        batchDTO.setBatchStart(batches.getStart_date());
+        batchDTO.setBatchEnd(batches.getEnd_date());
+
+
+        if(batches.getCourses()!=null){
+            batchDTO.setCourseName(batches.getCourses().getCourse_name());
+        }
+        else {
+            batchDTO.setCourseName(null);
+        }
+        if(batches.getTrainer()!=null)
+        {
+            batchDTO.setTrainerName(batches.getTrainer().getName());
+        }else {
+            batchDTO.setTrainerName(null);
+        }
+
+
+        batchDTO.setBatchStatus(batches.getStatus());
+        long studentscount= batches.getStudents().stream().map(
+                Students::getName
+        ).count();
+        batchDTO.setNoofstudents(studentscount);
+        return batchDTO;
+    }
+
 
     public static   List<BatchDTO> convertToBatchDTOs(List<Batches> batches){
         List<BatchDTO> batchDTOS = new ArrayList<>();
