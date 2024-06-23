@@ -3,8 +3,10 @@ package com.example.aprilbatchproject.controller;
 import java.util.List;
 
 import com.example.aprilbatchproject.dto.TrainerDTO;
+import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,5 +25,9 @@ public class TrainerController {
 
 		return ResponseEntity.ok(response);
 	}
-
+	@GetMapping("/name/{trainerName}")
+	public ResponseEntity<ApiResponse<List<TrainerDTO>>> getTrainerDetailsByName(@PathVariable("trainerName") String trainerName) {
+		List<TrainerDTO> trainerNames = trainerService.getTrainerDetailsByName(trainerName);
+		return new ResponseEntity<>(new ApiResponse<>(true, "Trainer Details fetched successfully", trainerNames), HttpStatus.OK);
+	}
 }
