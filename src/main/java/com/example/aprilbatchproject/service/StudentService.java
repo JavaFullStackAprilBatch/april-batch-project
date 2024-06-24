@@ -1,5 +1,6 @@
 package com.example.aprilbatchproject.service;
 
+import com.example.aprilbatchproject.dto.AddressDTO;
 import com.example.aprilbatchproject.dto.StudentDTO;
 import com.example.aprilbatchproject.entity.Address;
 import com.example.aprilbatchproject.entity.Batches;
@@ -8,16 +9,12 @@ import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.repository.AddressRepository;
 import com.example.aprilbatchproject.repository.BatchRepository;
 import com.example.aprilbatchproject.util.StudentUtil;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 import com.example.aprilbatchproject.repository.StudentRepository;
-import com.example.aprilbatchproject.response.ApiResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.NoSuchElementException;
 @Service
 public class StudentService {
 
@@ -107,5 +104,28 @@ public class StudentService {
 
         return studentDTO;
     }
+
+	public StudentDTO getStudent(Long id) {
+		
+		try {
+			
+		Students student = studentRepository.findById(id).get();
+		
+		List<String> batchNames =  new ArrayList<String>();
+		for (int i=0 ; i< student.getBatches().size() ; i++) {
+			batchNames.add(student.getBatches().get(i).getBatch_name());
+		}
+		
+		StudentDTO studentDto = new StudentDTO(student.getName(), batchNames, student.getEmail(), student.getPhone());
+		studentDto.setAddress(new AddressDTO(student.getAddress().getAddressLine1(), student.getAddress().getCity(),
+				student.getAddress().getState(), student.getAddress().getZipCode()));
+		
+		return studentDto;
+		}
+		
+		catch (NoSuchElementException e) {
+			throw new ResourceNotFoundException("No Student found for that id");
+		}
+	}
 
 }

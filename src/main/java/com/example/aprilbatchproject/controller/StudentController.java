@@ -42,4 +42,12 @@ public class StudentController {
         return new ResponseEntity<>(new ApiResponse<>(true, "Students Updated successfully", updateStudent), HttpStatus.OK);
 
     }
+    
+    @GetMapping("/getstudent/{id}")
+    public ResponseEntity<ApiResponse<StudentDTO>> getStudentById(@PathVariable Long id){
+    	StudentDTO student = studentService.getStudent(id);
+
+		return new ResponseEntity<>(new ApiResponse<>(true, "Student fetched successfully", student), HttpStatus.OK);
+    	
+    }
 }
