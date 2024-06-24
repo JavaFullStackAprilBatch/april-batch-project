@@ -47,4 +47,11 @@ public class BtachController {
         return  ResponseEntity.ok(response);
 
     }
+    
+    @DeleteMapping("/deleteBatch")
+    public ResponseEntity<ApiResponse<String>> deleteBatch(@RequestParam(value = "name") String name){
+    	String batchName = batchService.delete(name);
+		return new ResponseEntity<>(new ApiResponse<>(true, batchName+" Batch deleted Successfully ", batchName), HttpStatus.OK);
+    	
+    }
 }

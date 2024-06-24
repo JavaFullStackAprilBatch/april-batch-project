@@ -38,6 +38,7 @@ public class StudentUtil {
             changeAddress = addressRepository.findByAddressId(address.getAddress_id());
            changeAddress = SetAddress(changeAddress,dto);
         } else{
+        	address = new Address();
             changeAddress = SetAddress(address,dto);;
         }
         return changeAddress;

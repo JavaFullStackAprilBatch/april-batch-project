@@ -5,10 +5,12 @@ import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.entity.Courses;
 import com.example.aprilbatchproject.entity.StatusType;
+import com.example.aprilbatchproject.entity.Students;
 import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.repository.BatchRepository;
 import com.example.aprilbatchproject.repository.CourseRepository;
+import com.example.aprilbatchproject.repository.StudentRepository;
 import com.example.aprilbatchproject.repository.TrainerRepository;
 
 
@@ -29,6 +31,9 @@ public class BatchService {
     TrainerRepository trainerRepository;
     @Autowired
     CourseRepository courseRepository;
+    @Autowired
+    StudentRepository studentRepository;
+    
     public String createStudentsBatch(Batches batches){
         batchRepository.save(batches);
         return "Data saved";
@@ -96,6 +101,27 @@ public class BatchService {
             throw new ResourceNotFoundException("No Batches found");
         return DataConverter.convertToBatchDTOs(batches);
     }
+
+	
+    public String delete(String name) {
+		Batches batch = batchRepository.findByBatchName(name);
+		 if (batch != null) {
+			 
+			 for (Students stu : batch.getStudents()) {
+				 stu.getBatches().remove(batch);
+			 }
+			
+			 studentRepository.saveAll(batch.getStudents());
+			 batch.setCourses(null);
+			 batchRepository.deleteById(batch.getId());
+			 
+			 return batch.getBatch_name();
+		 }
+		 else {
+			 throw new ResourceNotFoundException("Batch Not Found");
+		 }
+	
+	}
 
 
 }

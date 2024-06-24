@@ -31,9 +31,9 @@ public class StudentService {
         // Convert DTO to entity
         Students student = new Students();
         student.setName(studentDTO.getName());
-        student.setAddress(student.getAddress());
+        student.setAddress(studentUtil.GetStudentAddress(studentDTO, student.getAddress()));
         student.setEmail(studentDTO.getEmail());
-        student.setPhone(student.getPhone());
+        student.setPhone(studentDTO.getPhone());
 
         List<Batches> batches = studentUtil.GetBatchNames(studentDTO);
         student.setBatches(batches);
