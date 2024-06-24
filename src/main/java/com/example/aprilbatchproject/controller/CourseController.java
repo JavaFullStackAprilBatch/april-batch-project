@@ -27,9 +27,9 @@ public class CourseController {
 	CourseService courseService;
 
     @PostMapping("/create_course")
-    public String createCourse(@RequestBody Courses courses) throws Exception {
+    public ResponseEntity<ApiResponse<String>> createCourse(@RequestBody Courses courses) throws Exception {
         courseService.createCourse(courses);
-        return "Course Data Save Successfully";
+        return ResponseEntity.ok(new ApiResponse<>(true,"Course Data Save Successfully",""));
     }
 
     @GetMapping
