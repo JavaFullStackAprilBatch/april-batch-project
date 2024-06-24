@@ -4,6 +4,9 @@ import com.example.aprilbatchproject.entity.Courses;
 import com.example.aprilbatchproject.repository.CourseRepository;
 import java.util.List;
 
+import com.example.aprilbatchproject.dto.CourseDTO;
+import com.example.aprilbatchproject.exception.ResourceNotFoundException;
+import com.example.aprilbatchproject.util.DataConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +31,12 @@ public class CourseService {
     }
 
 
-	public List<String> getAllCourseNames() {
-		return courseRepository.getAllCourseNames();
+
+	public List<CourseDTO> getAllCourseNames() {
+		List<String> courseNames = courseRepository.findAllDistinctCourseNames();
+		if(courseNames.isEmpty())
+			throw new ResourceNotFoundException("No courses found");
+		return DataConverter.convertToCourseDTOs(courseNames);
 
 	}
 }
