@@ -15,7 +15,7 @@ public class TrainerDTO {
     }
 
     public TrainerDTO(String name) {
-        this.trainerName = trainerName;
+        this.trainerName = name;
     }
 
     // Getter and setter

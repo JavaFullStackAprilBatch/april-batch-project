@@ -1,5 +1,6 @@
 package com.example.aprilbatchproject.controller;
 import com.example.aprilbatchproject.dto.StudentDTO;
+import com.example.aprilbatchproject.entity.StatusType;
 import com.example.aprilbatchproject.response.ApiResponse;
 import com.example.aprilbatchproject.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,16 @@ public class StudentController {
         StudentDTO updateStudent = studentService.getStudentByName(name, studentDTO);
 
         return new ResponseEntity<>(new ApiResponse<>(true, "Students Updated successfully", updateStudent), HttpStatus.OK);
+    }
+
+    @GetMapping("/batchStatus")
+    public ResponseEntity<ApiResponse<List<StudentDTO>>> getStudentsByStatus(@RequestParam String status){
+
+        List<StudentDTO> students=studentService.getStudentsByStatus(status);
+        if (students != null)
+            return new ResponseEntity<>(new ApiResponse<>(true, "Students fetched successfully",students ), HttpStatus.OK);
+        else
+            return new ResponseEntity<>(new ApiResponse<>(false, "Failed to fetched students", students), HttpStatus.BAD_REQUEST);
+
     }
 }

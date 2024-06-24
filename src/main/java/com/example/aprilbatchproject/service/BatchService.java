@@ -4,10 +4,12 @@ package com.example.aprilbatchproject.service;
 import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.entity.Courses;
+import com.example.aprilbatchproject.entity.StatusType;
 import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.repository.BatchRepository;
 import com.example.aprilbatchproject.repository.CourseRepository;
+import com.example.aprilbatchproject.repository.StudentRepository;
 import com.example.aprilbatchproject.repository.TrainerRepository;
 import com.example.aprilbatchproject.util.DataConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class BatchService {
     TrainerRepository trainerRepository;
     @Autowired
     CourseRepository courseRepository;
+    @Autowired
+    StudentRepository studentRepository;
     public String createStudentsBatch(Batches batches){
         batchRepository.save(batches);
         return "Data saved";
@@ -59,12 +63,5 @@ public class BatchService {
 
         return dto;
     }
-
-    public List<BatchDTO> getCompletedBatchs() {
-        List<Batches> batches = batchRepository.findByBatchStatus();
-        List<BatchDTO> batchDTOS =  DataConverter.convertBatchsToBatchDto(batches);
-        return batchDTOS;
-    }
-
 
 }

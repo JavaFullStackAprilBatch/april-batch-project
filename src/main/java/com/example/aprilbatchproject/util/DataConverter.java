@@ -1,9 +1,8 @@
 package com.example.aprilbatchproject.util;
 
-import com.example.aprilbatchproject.dto.BatchDTO;
-import com.example.aprilbatchproject.dto.CourseDTO;
-import com.example.aprilbatchproject.dto.TrainerDTO;
+import com.example.aprilbatchproject.dto.*;
 import com.example.aprilbatchproject.entity.Batches;
+import com.example.aprilbatchproject.entity.Students;
 import com.example.aprilbatchproject.entity.Trainers;
 
 import java.util.ArrayList;
@@ -17,6 +16,7 @@ public class DataConverter {
         }
         return courseDTOs;
     }
+
     public static List<TrainerDTO> convertToTrainerDTOs(List<String> courseNames) {
         List<TrainerDTO> trainerDTOs = new ArrayList<>();
         for (String courseName : courseNames) {
@@ -42,5 +42,15 @@ public class DataConverter {
             batchDTOS.add(new BatchDTO(batch.getBatch_name()));
         }
         return batchDTOS;
+    }
+
+
+    public static AddressDTO convertAddressToAddresssDto(Students s) {
+        AddressDTO addressDTO = new AddressDTO();
+        addressDTO.setAddressLine1(s.getAddress()== null ?"":s.getAddress().getAddressLine1());
+        addressDTO.setCity(s.getAddress()== null ?"":s.getAddress().getCity());
+        addressDTO.setState(s.getAddress()== null ?"":s.getAddress().getState());
+        addressDTO.setZipCode(s.getAddress()== null ?"":s.getAddress().getZipCode());
+        return addressDTO;
     }
 }

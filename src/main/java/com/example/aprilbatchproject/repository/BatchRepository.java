@@ -2,6 +2,9 @@ package com.example.aprilbatchproject.repository;
 
 
 import com.example.aprilbatchproject.entity.Batches;
+import com.example.aprilbatchproject.entity.StatusType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import org.hibernate.engine.jdbc.batch.spi.Batch;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,6 +20,6 @@ public interface BatchRepository extends JpaRepository<Batches, Long> {
     public Batches findByBatchName(String batchName);
 
 
-    @Query("select b from Batches b where b.status=Completed")
-    public List<Batches> findByBatchStatus();
+    @Query("select b from Batches b where b.status= :status")
+    public List<Batches> findByBatchStatus(StatusType status );
 }
