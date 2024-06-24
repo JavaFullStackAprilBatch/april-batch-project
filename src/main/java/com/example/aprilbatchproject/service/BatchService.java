@@ -11,11 +11,15 @@ import com.example.aprilbatchproject.repository.BatchRepository;
 import com.example.aprilbatchproject.repository.CourseRepository;
 import com.example.aprilbatchproject.repository.TrainerRepository;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.aprilbatchproject.util.DataConverter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class BatchService {
@@ -62,6 +66,7 @@ public class BatchService {
         return dto;
     }
 
+
 	public List<BatchDTO> findAllCompletedBatchDetail() {
 		
 		List<Batches> batches = new ArrayList<Batches>();
@@ -83,6 +88,14 @@ public class BatchService {
 		
 		return batchDTO;
 	}
+
+    public List<BatchDTO>getOngoingBatchs(String status){
+
+       List<Batches> batches =  batchRepository.findByStatusType(status);
+        if(batches.isEmpty())
+            throw new ResourceNotFoundException("No Batches found");
+        return DataConverter.convertToBatchDTOs(batches);
+    }
 
 
 }

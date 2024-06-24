@@ -11,6 +11,9 @@ public class BatchDTO {
     private String trainerName;
     private StatusType batchStatus;
 
+    public BatchDTO() {
+    }
+
     public String getBatchName() {
         return batchName;
     }

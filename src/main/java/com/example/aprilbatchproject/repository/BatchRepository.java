@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
 public interface BatchRepository extends JpaRepository<Batches, Long> {
 
@@ -18,4 +19,8 @@ public interface BatchRepository extends JpaRepository<Batches, Long> {
     public Batches findByBatchName(String batchName);
 
 	public List<Batches> findByStatus(StatusType status);
+
+    @Query(nativeQuery = true, value = "select * from aprilbatch.batches b where b.status_type= :status")
+    public List<Batches> findByStatusType(String status);
+
 }
