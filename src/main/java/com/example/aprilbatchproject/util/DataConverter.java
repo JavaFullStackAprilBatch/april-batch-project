@@ -9,7 +9,6 @@ import com.example.aprilbatchproject.entity.Courses;
 import com.example.aprilbatchproject.entity.Students;
 import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
-import org.hibernate.engine.jdbc.batch.spi.Batch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,13 +51,13 @@ public class DataConverter {
     public static   List<BatchDTO> convertToBatchDTOs(List<Batches> batches){
         List<BatchDTO> batchDTOS = new ArrayList<>();
         for(Batches batch : batches){
-            BatchDTO batchDTO = new BatchDTO();
+            BatchDTO batchDTO = new BatchDTO(batch.getBatch_name());
             batchDTO.setBatchName(batch.getBatch_name());
             batchDTO.setBatchStart(batch.getStart_date());
             batchDTO.setBatchEnd(batch.getEnd_date());
             Courses courses = batch.getCourses();
             if(courses !=null){
-                batchDTO.setCourseName(courses.getCourse_name());
+                batchDTO.setCourseName(courses.getCourseName());
             }else {
                 throw new ResourceNotFoundException("CourseName Not Found");
             }

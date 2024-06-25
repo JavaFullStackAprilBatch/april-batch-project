@@ -1,37 +1,42 @@
 package com.example.aprilbatchproject.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "courses")
 public class Courses {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long course_id;
-    private String course_name;
-    private String course_content;
+    private long courseId;
+    @NotNull
+    @Column(nullable = false,unique = true)
+    private String courseName;
+    @NotNull
+    @Column(nullable = false)
+    private String courseContent;
 
-    public long getCourse_id() {
-        return course_id;
+    public long getCourseId() {
+        return courseId;
     }
 
-    public void setCourse_id(long course_id) {
-        this.course_id = course_id;
+    public void setCourseId(long courseId) {
+        this.courseId = courseId;
     }
 
-    public String getCourse_name() {
-        return course_name;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setCourse_name(String course_name) {
-        this.course_name = course_name;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
-    public String getCourse_content() {
-        return course_content;
+    public String getCourseContent() {
+        return courseContent;
     }
 
-    public void setCourse_content(String course_content) {
-        this.course_content = course_content;
+    public void setCourseContent(String courseContent) {
+        this.courseContent = courseContent;
     }
 }

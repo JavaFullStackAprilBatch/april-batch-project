@@ -6,8 +6,17 @@ public class TrainerDTO {
     }
 
     private String trainerName;
+    private String email;
+    private String phone;
+    private String specialization;
 
-    public TrainerDTO(){};
+    public TrainerDTO(String trainerName, String email, String phone, String specialization) {
+        this.trainerName = trainerName;
+        this.email = email;
+        this.phone = phone;
+        this.specialization = specialization;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -32,11 +41,11 @@ public class TrainerDTO {
         this.specialization = specialization;
     }
 
-    private String email;
-    private String phone;
-    private String specialization;
+
+
 
     public TrainerDTO(String name) {
+
         this.trainerName = name;
     }
 
@@ -44,12 +53,7 @@ public class TrainerDTO {
         this.trainerName = trainerName;
     }
 
-    /* // Getter and setter
-        public String getName() {
-            return trainerName;
-        }
-    */
-    public void setName(String trainerName) {
-        this.trainerName = trainerName;
-    }
+
+
+    public TrainerDTO(){};
 }

@@ -3,6 +3,7 @@ package com.example.aprilbatchproject.controller;
 import java.util.List;
 
 import com.example.aprilbatchproject.dto.TrainerDTO;
+import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,11 @@ public class TrainerController {
 		ApiResponse<List<TrainerDTO>> response = new ApiResponse<>(true, "Trainers fetched successfully", trainerNames);
 
 		return ResponseEntity.ok(response);
+	}
+	@GetMapping("/getTrainerDetailsByName")
+	public ResponseEntity<ApiResponse<List<TrainerDTO>>> getTrainerDetailsByName(@RequestParam String trainerName) {
+		List<TrainerDTO> trainerNames = trainerService.getTrainerDetailsByName(trainerName);
+		return new ResponseEntity<>(new ApiResponse<>(true, "Trainer Details fetched successfully", trainerNames), HttpStatus.OK);
 	}
 
 	@GetMapping("/gettrainerdetailsbyid/{id}")
