@@ -22,7 +22,7 @@ public class StudentController {
         return new ResponseEntity<>(new ApiResponse<>(true, "Student created successfully", createdStudent), HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<ApiResponse<List<StudentDTO>>> getAllStudents() {
         List<StudentDTO> students = studentService.getAllStudents();
         return new ResponseEntity<>(new ApiResponse<>(true, "Students fetched successfully", students), HttpStatus.OK);

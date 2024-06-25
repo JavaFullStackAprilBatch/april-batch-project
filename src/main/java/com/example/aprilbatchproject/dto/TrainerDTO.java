@@ -1,53 +1,55 @@
 package com.example.aprilbatchproject.dto;
 
 public class TrainerDTO {
+    public String getTrainerName() {
+        return trainerName;
+    }
 
     private String trainerName;
-    private String trainerEmail;
-    private String trainerPhone;
-    private String trainerSpecialization;
 
-    public TrainerDTO(String trainerName, String trainerEmail, String trainerPhone, String trainerSpecialization) {
-        this.trainerName = trainerName;
-        this.trainerEmail = trainerEmail;
-        this.trainerPhone = trainerPhone;
-        this.trainerSpecialization = trainerSpecialization;
+    public TrainerDTO(){};
+    public String getEmail() {
+        return email;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    private String email;
+    private String phone;
+    private String specialization;
 
     public TrainerDTO(String name) {
         this.trainerName = name;
     }
 
-    // Getter and setter
-    public String getName() {
-        return trainerName;
-    }
-
-    public void setName(String trainerName) {
+    public void setTrainerName(String trainerName) {
         this.trainerName = trainerName;
     }
 
-    public String getTrainerEmail() {
-        return trainerEmail;
-    }
-
-    public void setTrainerEmail(String trainerEmail) {
-        this.trainerEmail = trainerEmail;
-    }
-
-    public String getTrainerPhone() {
-        return trainerPhone;
-    }
-
-    public void setTrainerPhone(String trainerPhone) {
-        this.trainerPhone = trainerPhone;
-    }
-
-    public String getTrainerSpecialization() {
-        return trainerSpecialization;
-    }
-
-    public void setTrainerSpecialization(String trainerSpecialization) {
-        this.trainerSpecialization = trainerSpecialization;
+    /* // Getter and setter
+        public String getName() {
+            return trainerName;
+        }
+    */
+    public void setName(String trainerName) {
+        this.trainerName = trainerName;
     }
 }

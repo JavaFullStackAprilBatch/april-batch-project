@@ -1,14 +1,11 @@
 package com.example.aprilbatchproject.dto;
 
 import com.example.aprilbatchproject.entity.StatusType;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BatchDTO {
-
-    public BatchDTO(String batchName) {
-        this.batchName = batchName;
-    }
 
     private String batchName;
     private String batchStart;
@@ -16,7 +13,15 @@ public class BatchDTO {
     private String courseName;
     private String trainerName;
     private StatusType batchStatus;
+   
 
+    public BatchDTO() {
+    }
+
+    public BatchDTO(String batchName){
+        this.batchName=batchName;
+
+    }
     public String getBatchName() {
         return batchName;
     }

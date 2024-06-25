@@ -33,4 +33,20 @@ public class TrainerService {
 		return DataConverter.convertToTrainerDTOs(trainerNames);
 	}
 
+	public TrainerDTO getTrainerdetailsById(Long id)
+	{
+		try {
+
+			Trainers trainers=trainerRepository.findById(id).get();
+		return  DataConverter.converToTrainerDTO(trainers);
+		}catch (Exception e)
+		{
+			throw new RuntimeException("Trainer details not found");
+		}
+
+	}
+
+
+
+
 }
