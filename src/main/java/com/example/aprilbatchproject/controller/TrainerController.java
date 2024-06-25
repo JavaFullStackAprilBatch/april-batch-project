@@ -35,8 +35,9 @@ public class TrainerController {
 
 	}
 
-	@GetMapping("/name/{trainerName}")
-	public ResponseEntity<ApiResponse<List<TrainerDTO>>> getTrainerDetailsByName(@PathVariable("trainerName") String trainerName) {
+
+	@GetMapping("/getTrainerDetailsByName")
+	public ResponseEntity<ApiResponse<List<TrainerDTO>>> getTrainerDetailsByName(@RequestParam String trainerName) {
 		List<TrainerDTO> trainerNames = trainerService.getTrainerDetailsByName(trainerName);
 		return new ResponseEntity<>(new ApiResponse<>(true, "Trainer Details fetched successfully", trainerNames), HttpStatus.OK);
 	}
