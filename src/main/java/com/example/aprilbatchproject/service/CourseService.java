@@ -43,13 +43,13 @@ public class CourseService {
 	}
 
 	public DeleteCourseDTO deleteCourse(Long id){
-		Courses existingCourses = courseRepo.findById(id).get();
-		DeleteCourseDTO deleteCourseDTO = new DeleteCourseDTO(existingCourses.getCourse_name(), existingCourses.getCourse_content());
+		Courses existingCourses = courseRepository.findById(id).get();
+		DeleteCourseDTO deleteCourseDTO = new DeleteCourseDTO(existingCourses.getCourseName(), existingCourses.getCourseContent());
 
 		if(existingCourses == null){
 			throw new ResourceNotFoundException("Course not Found");
 		}else {
-			courseRepo.delete(existingCourses);
+			courseRepository.delete(existingCourses);
 		}
         return deleteCourseDTO;
 	}
