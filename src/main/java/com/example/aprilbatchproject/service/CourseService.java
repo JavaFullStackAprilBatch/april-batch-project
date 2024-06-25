@@ -3,7 +3,10 @@ package com.example.aprilbatchproject.service;
 import java.util.List;
 
 import com.example.aprilbatchproject.dto.CourseDTO;
+<<<<<<< HEAD
 import com.example.aprilbatchproject.dto.DeleteCourseDTO;
+=======
+>>>>>>> 348610940cd70e30a14ccf26ec0c7148a9dd8591
 import com.example.aprilbatchproject.entity.Courses;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.util.DataConverter;
@@ -55,5 +58,15 @@ public class CourseService {
 			logger.error("Error fetching course details by name: {}", name, e);
 			throw new RuntimeException("Failed to fetch course details by name: " + name);
 		}
+	}
+
+	public CourseDTO getCoursedetaileByName(String name) {
+
+		Courses courses=courseRepo.getCourseByName(name);
+		if (courses == null) {
+			throw new RuntimeException("Course not found with name: " + name);
+		}
+		return DataConverter.convertcoursestoDTo(courses);
+
 	}
 }

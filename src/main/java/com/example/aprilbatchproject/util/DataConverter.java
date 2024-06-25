@@ -53,6 +53,7 @@ public class DataConverter {
         return batchDTOS;
     }
 
+<<<<<<< HEAD
     //convertcoursestoDTo
     public static CourseDTO convertcoursestoDTo(Courses courses)
     {
@@ -61,4 +62,16 @@ public class DataConverter {
         courseDTO.setCourse_content(courses.getCourse_content());
         return courseDTO;
     }
+=======
+    //convert course enityty to DTo
+    public static CourseDTO convertcoursestoDTo(Courses course)
+    {
+        CourseDTO courseDTO=new CourseDTO();
+        courseDTO.setCourseName(course.getCourse_name());
+        courseDTO.setCourseContent(course.getCourse_content());
+
+        return courseDTO;
+    }
+
+>>>>>>> 348610940cd70e30a14ccf26ec0c7148a9dd8591
 }
