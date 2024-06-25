@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.aprilbatchproject.dto.TrainerDTO;
 import com.example.aprilbatchproject.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,15 @@ public class TrainerController {
 		ApiResponse<List<TrainerDTO>> response = new ApiResponse<>(true, "Trainers fetched successfully", trainerNames);
 
 		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/gettrainerdetailsbyid/{id}")
+	public ResponseEntity<ApiResponse<TrainerDTO>> getTrainerDetailsById(@PathVariable Long id)
+	{
+		TrainerDTO trainerdetailsbyid= trainerService.getTrainerdetailsById(id);
+		ApiResponse<TrainerDTO> response=new ApiResponse<>(true,"Trainer details Retrived for this id",trainerdetailsbyid);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+
 	}
 
 }
