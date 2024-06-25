@@ -3,6 +3,7 @@ package com.example.aprilbatchproject.service;
 import java.util.List;
 
 import com.example.aprilbatchproject.dto.TrainerDTO;
+import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.util.DataConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,19 @@ public class TrainerService {
 		if(trainerNames.isEmpty())
 			throw new ResourceNotFoundException("No Trainer found");
 		return DataConverter.convertToTrainerDTOs(trainerNames);
+	}
+
+	public TrainerDTO getTrainerdetailsById(Long id)
+	{
+		try {
+
+			Trainers trainers=trainerRepository.findById(id).get();
+		return  DataConverter.converToTrainerDTO(trainers);
+		}catch (Exception e)
+		{
+			throw new RuntimeException("Trainer details not found");
+		}
+
 	}
 
 }
