@@ -25,6 +25,11 @@ public class TrainerController {
 
 		return ResponseEntity.ok(response);
 	}
+	@GetMapping("/getTrainerDetailsByName")
+	public ResponseEntity<ApiResponse<List<TrainerDTO>>> getTrainerDetailsByName(@RequestParam String trainerName) {
+		List<TrainerDTO> trainerNames = trainerService.getTrainerDetailsByName(trainerName);
+		return new ResponseEntity<>(new ApiResponse<>(true, "Trainer Details fetched successfully", trainerNames), HttpStatus.OK);
+	}
 
 	@GetMapping("/gettrainerdetailsbyid/{id}")
 	public ResponseEntity<ApiResponse<TrainerDTO>> getTrainerDetailsById(@PathVariable Long id)
@@ -35,10 +40,4 @@ public class TrainerController {
 
 	}
 
-
-	@GetMapping("/getTrainerDetailsByName")
-	public ResponseEntity<ApiResponse<List<TrainerDTO>>> getTrainerDetailsByName(@RequestParam String trainerName) {
-		List<TrainerDTO> trainerNames = trainerService.getTrainerDetailsByName(trainerName);
-		return new ResponseEntity<>(new ApiResponse<>(true, "Trainer Details fetched successfully", trainerNames), HttpStatus.OK);
-	}
 }
