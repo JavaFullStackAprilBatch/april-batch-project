@@ -12,6 +12,10 @@ public class TrainerDTO {
         this.phone = phone;
         this.specialization = specialization;
     }
+
+    public TrainerDTO() {
+    }
+
     public TrainerDTO(String name) {
 
         this.trainerName = name;

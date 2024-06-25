@@ -28,6 +28,17 @@ public class DataConverter {
         return trainerDTOs;
     }
 
+    //TrinerDto Conversion
+    public static TrainerDTO converToTrainerDTO(Trainers trainers)
+    {
+        TrainerDTO trainerDTO=new TrainerDTO();
+        trainerDTO.setName(trainers.getName());
+        trainerDTO.setEmail(trainers.getEmail());
+        trainerDTO.setPhone(trainers.getPhone());
+        trainerDTO.setSpecialization(trainers.getSpecialization());
+        return trainerDTO;
+    }
+
     public static   List<BatchDTO> convertToBatchDTOs(List<Batches> batches){
         List<BatchDTO> batchDTOS = new ArrayList<>();
         for(Batches batch : batches){

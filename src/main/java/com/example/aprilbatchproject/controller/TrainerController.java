@@ -30,4 +30,14 @@ public class TrainerController {
 		List<TrainerDTO> trainerNames = trainerService.getTrainerDetailsByName(trainerName);
 		return new ResponseEntity<>(new ApiResponse<>(true, "Trainer Details fetched successfully", trainerNames), HttpStatus.OK);
 	}
+
+	@GetMapping("/gettrainerdetailsbyid/{id}")
+	public ResponseEntity<ApiResponse<TrainerDTO>> getTrainerDetailsById(@PathVariable Long id)
+	{
+		TrainerDTO trainerdetailsbyid= trainerService.getTrainerdetailsById(id);
+		ApiResponse<TrainerDTO> response=new ApiResponse<>(true,"Trainer details Retrived for this id",trainerdetailsbyid);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+
+	}
+
 }

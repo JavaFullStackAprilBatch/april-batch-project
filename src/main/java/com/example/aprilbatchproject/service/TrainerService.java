@@ -1,6 +1,7 @@
 package com.example.aprilbatchproject.service;
 
 import com.example.aprilbatchproject.dto.TrainerDTO;
+import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.repository.TrainerRepository;
 import com.example.aprilbatchproject.util.DataConverter;
@@ -37,6 +38,19 @@ public class TrainerService {
 
     }
 
+
+	public TrainerDTO getTrainerdetailsById(Long id)
+	{
+		try {
+
+			Trainers trainers=trainerRepository.findById(id).get();
+		return  DataConverter.converToTrainerDTO(trainers);
+		}catch (Exception e)
+		{
+			throw new RuntimeException("Trainer details not found");
+		}
+
+	}
 
 }
 
