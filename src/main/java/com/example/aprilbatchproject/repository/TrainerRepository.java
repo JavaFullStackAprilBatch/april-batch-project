@@ -17,4 +17,5 @@ public interface TrainerRepository extends JpaRepository<Trainers, Long>{
 	Trainers getTrainerByName(String trainerName);
 	List<Trainers> findTrainerByName(String trainerName);
 
+
 }

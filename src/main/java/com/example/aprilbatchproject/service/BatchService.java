@@ -1,8 +1,10 @@
 package com.example.aprilbatchproject.service;
 
 
+
 import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.entity.Batches;
+import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.entity.Courses;
 import com.example.aprilbatchproject.entity.StatusType;
 import com.example.aprilbatchproject.entity.StatusType;
@@ -10,6 +12,7 @@ import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.exception.DuplicateResourceFoundException;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.repository.BatchRepository;
+import com.example.aprilbatchproject.repository.TrainerRepository;
 import com.example.aprilbatchproject.repository.CourseRepository;
 import com.example.aprilbatchproject.repository.TrainerRepository;
 import com.example.aprilbatchproject.util.DataConverter;

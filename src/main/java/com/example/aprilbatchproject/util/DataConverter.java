@@ -48,7 +48,7 @@ public class DataConverter {
             batchDTO.setBatchEnd(batch.getEnd_date());
             Courses courses = batch.getCourses();
             if(courses !=null){
-                batchDTO.setCourseName(courses.getCourse_name());
+                batchDTO.setCourseName(courses.getCourseName());
             }else {
                 throw new ResourceNotFoundException("CourseName Not Found");
             }
