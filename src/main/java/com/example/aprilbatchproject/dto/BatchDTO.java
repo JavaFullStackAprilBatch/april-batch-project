@@ -13,6 +13,7 @@ public class BatchDTO {
     private String courseName;
     private String trainerName;
     private StatusType batchStatus;
+   
 
     public BatchDTO() {
     }

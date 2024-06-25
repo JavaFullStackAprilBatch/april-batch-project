@@ -5,11 +5,13 @@ import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.entity.Courses;
 import com.example.aprilbatchproject.entity.StatusType;
+import com.example.aprilbatchproject.entity.StatusType;
 import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.repository.BatchRepository;
 import com.example.aprilbatchproject.repository.CourseRepository;
 import com.example.aprilbatchproject.repository.TrainerRepository;
+import com.example.aprilbatchproject.util.DataConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import java.util.List;
 
 @Service
 public class BatchService {
@@ -62,6 +66,14 @@ public class BatchService {
         Batches saveBatch = batchRepository.save(batch);
 
         return dto;
+    }
+
+    public List<BatchDTO>getOngoingBatchs(String status){
+
+       List<Batches> batches =  batchRepository.findByStatusType(status);
+        if(batches.isEmpty())
+            throw new ResourceNotFoundException("No Batches found");
+        return DataConverter.convertToBatchDTOs(batches);
     }
 
     public List<BatchDTO> getListOfBatchNames() {
