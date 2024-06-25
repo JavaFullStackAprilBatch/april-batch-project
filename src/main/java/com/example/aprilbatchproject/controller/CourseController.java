@@ -27,6 +27,18 @@ public class CourseController {
 		return  ResponseEntity.ok(response);
 	}
 
+	//getendpoint course information based on name
+	@GetMapping("/getCoursesdetailsByName")
+	public ResponseEntity<ApiResponse<CourseDTO>> getCoursedeatilsByName(@RequestParam String name) {
+		try {
+			CourseDTO coursedetails = courseService.getCoursedetaileByName(name);
+			ApiResponse<CourseDTO> response = new ApiResponse<>(true, "Course details retrived for this name", coursedetails);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(false, e.getMessage(), null));
+		}
+	}
+
 	@DeleteMapping("/deleteCourse/{id}")
 	public ResponseEntity<ApiResponse<DeleteCourseDTO>> deleteCourseById(@PathVariable Long id){
 		DeleteCourseDTO deleteCourseDTO = courseService.deleteCourse(id);

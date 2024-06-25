@@ -52,4 +52,13 @@ public class DataConverter {
         }
         return batchDTOS;
     }
+
+    //convertcoursestoDTo
+    public static CourseDTO convertcoursestoDTo(Courses courses)
+    {
+        CourseDTO courseDTO=new CourseDTO();
+        courseDTO.setCourseName(courses.getCourse_name());
+        courseDTO.setCourse_content(courses.getCourse_content());
+        return courseDTO;
+    }
 }

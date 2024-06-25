@@ -3,6 +3,17 @@ package com.example.aprilbatchproject.dto;
 public class CourseDTO {
     private String courseName;
 
+    public CourseDTO(){}
+    public String getCourse_content() {
+        return course_content;
+    }
+
+    public void setCourse_content(String course_content) {
+        this.course_content = course_content;
+    }
+
+    private String course_content;
+
     //  getters, and setters
 
 
