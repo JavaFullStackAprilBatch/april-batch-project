@@ -34,6 +34,7 @@ public class TrainerDTO {
     private String specialization;
 
     public TrainerDTO(String name) {
+
         this.trainerName = name;
     }
 
