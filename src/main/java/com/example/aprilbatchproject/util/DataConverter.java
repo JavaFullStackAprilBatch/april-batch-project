@@ -12,7 +12,6 @@ import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.entity.Courses;
 import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
-import org.hibernate.engine.jdbc.batch.spi.Batch;
 
 import com.example.aprilbatchproject.entity.Address;
 
@@ -54,7 +53,7 @@ public class DataConverter {
     public static   List<BatchDTO> convertToBatchDTOs(List<Batches> batches){
         List<BatchDTO> batchDTOS = new ArrayList<>();
         for(Batches batch : batches){
-            BatchDTO batchDTO = new BatchDTO();
+            BatchDTO batchDTO = new BatchDTO(batch.getBatch_name());
             batchDTO.setBatchName(batch.getBatch_name());
             batchDTO.setBatchStart(batch.getStart_date());
             batchDTO.setBatchEnd(batch.getEnd_date());
