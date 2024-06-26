@@ -68,6 +68,8 @@ public class CourseController {
 		ApiResponse<CourseDTO> response = new ApiResponse<>(true,"Courses fetched Successfully using id", courseDTO);
 		return new ResponseEntity<>(response,HttpStatus.OK);
 		}
+	
+	
 	@DeleteMapping("/deleteCourse/{id}")
 	public ResponseEntity<ApiResponse<DeleteCourseDTO>> deleteCourseById(@PathVariable Long id){
 		DeleteCourseDTO deleteCourseDTO = courseService.deleteCourse(id);

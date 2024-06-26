@@ -72,9 +72,10 @@ public class CourseService {
 
 		if(existingCourses == null){
 			throw new ResourceNotFoundException("Course not Found");
-		}else {
+		}
+		else {
 			courseRepository.delete(existingCourses);
 		}
-        return deleteCourseDTO;
+		return deleteCourseDTO;
 	}
 }
