@@ -72,7 +72,7 @@ public class BatchService {
 
     ////Get the batch detail based on the batch Name
     public BatchDTO getBatchName(String name) {
-        Batches batches = batchRepository.findByBatchName(name);
+        Batches batches = batchRepository.getBatchByNameIgnoreCase(name);
         if (batches == null) {
             throw new BatchNotFoundException("Batch name not found");
         }
