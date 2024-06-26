@@ -2,6 +2,7 @@ package com.example.aprilbatchproject.util;
 
 import com.example.aprilbatchproject.dto.CourseDTO;
 import com.example.aprilbatchproject.dto.TrainerDTO;
+import com.example.aprilbatchproject.entity.Trainers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,4 +22,5 @@ public class DataConverter {
         }
         return trainerDTOs;
     }
+	
 }

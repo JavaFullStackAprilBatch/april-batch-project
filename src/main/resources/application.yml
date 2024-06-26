@@ -14,7 +14,7 @@ spring:
     hibernate:
         ddl-auto: none
       # ddl-auto: create
-      # ddl-auto: update
+      #ddl-auto: update
   api-docs:
     path: /v3/api-docs
   swagger-ui:

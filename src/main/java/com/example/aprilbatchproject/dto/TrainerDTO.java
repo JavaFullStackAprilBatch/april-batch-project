@@ -3,6 +3,7 @@ package com.example.aprilbatchproject.dto;
 public class TrainerDTO {
 
     private String trainerName;
+    
 
     public TrainerDTO(String name) {
         this.trainerName = name;

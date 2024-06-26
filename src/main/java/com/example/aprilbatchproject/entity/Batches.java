@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name = "batches")
 public class Batches {

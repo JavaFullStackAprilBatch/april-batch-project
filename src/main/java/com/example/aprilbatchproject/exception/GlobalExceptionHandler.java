@@ -20,4 +20,11 @@ public class GlobalExceptionHandler {
         ApiResponse<String> response = new ApiResponse<>(false, ex.getMessage(), null);
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+    
+    
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ApiResponse<String>> handleConstraintViolationException(ConstraintViolationException ex) {
+        ApiResponse<String> response = new ApiResponse<>(false, ex.getMessage(), null);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }
