@@ -1,13 +1,16 @@
 package com.example.aprilbatchproject.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.aprilbatchproject.dto.CourseDTO;
+import com.example.aprilbatchproject.entity.Courses;
 import com.example.aprilbatchproject.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.aprilbatchproject.service.CourseService;
@@ -26,8 +29,21 @@ public class CourseController {
 		ApiResponse<List<CourseDTO>> response = new ApiResponse<>(true, "Courses fetched successfully", courseNames);
 		return  ResponseEntity.ok(response);
 
-
-
-
+	}
+	
+	@GetMapping("/getCourseById/{id}")
+	
+	public ResponseEntity<ApiResponse<CourseDTO>> getCourseById(@PathVariable Long id)
+	{
+		Optional<Courses> course = courseService.getCourseById(id);
+		if(!course.isPresent()) {
+			ApiResponse<CourseDTO> response = new ApiResponse<>(false, "Course not found", null);
+			return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+		}
+		
+		CourseDTO courseDTO = courseService.convertToCourseDTO(course.get());
+		
+		ApiResponse<CourseDTO> response = new ApiResponse<>(true,"Courses fetched Successfully using id", courseDTO);
+		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 }

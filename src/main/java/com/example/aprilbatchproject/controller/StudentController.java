@@ -1,5 +1,6 @@
 package com.example.aprilbatchproject.controller;
 import com.example.aprilbatchproject.dto.StudentDTO;
+import com.example.aprilbatchproject.dto.TrainerDTO;
 import com.example.aprilbatchproject.response.ApiResponse;
 import com.example.aprilbatchproject.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,9 @@ public class StudentController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<StudentDTO>>> getAllStudents() {
-        List<StudentDTO> students = studentService.getAllStudents();
+       List<StudentDTO> students = studentService.getAllStudents();
         return new ResponseEntity<>(new ApiResponse<>(true, "Students fetched successfully", students), HttpStatus.OK);
+    	
     }
 
     @PutMapping("/updatestudentbyname")

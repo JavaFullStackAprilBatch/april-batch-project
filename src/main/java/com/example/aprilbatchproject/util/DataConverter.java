@@ -1,10 +1,13 @@
 package com.example.aprilbatchproject.util;
 
 import com.example.aprilbatchproject.dto.CourseDTO;
+import com.example.aprilbatchproject.dto.StudentDTO;
 import com.example.aprilbatchproject.dto.TrainerDTO;
+import com.example.aprilbatchproject.entity.Courses;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DataConverter {
     public static List<CourseDTO> convertToCourseDTOs(List<String> courseNames) {
@@ -21,4 +24,7 @@ public class DataConverter {
         }
         return trainerDTOs;
     }
+	
+	
+	
 }
