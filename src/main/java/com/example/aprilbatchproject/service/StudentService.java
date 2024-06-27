@@ -81,23 +81,6 @@ public class StudentService {
     }
 
 
-
-        if (existingStudent == null) {
-            throw new ResourceNotFoundException("No details found with student name: " + name);
-        }
-        if (batches.isEmpty()) {
-            throw new ResourceNotFoundException("No Batch details found for this student: " + name);
-        }
-        if (address == null) {
-            throw new ResourceNotFoundException("No Address details found for this student: " + name);
-        }
-        // Save entity
-        Students savedStudent = studentRepository.save(existingStudent);
-
-        return studentDTO;
-    }
-
-
     public List<StudentDTO> getStudentsByStatus(String status) {
 
         StatusType statusType = StatusType.valueOf(status);

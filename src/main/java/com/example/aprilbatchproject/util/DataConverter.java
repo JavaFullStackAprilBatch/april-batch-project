@@ -1,9 +1,5 @@
 package com.example.aprilbatchproject.util;
-<<<<<<< Jayita
-
 import com.example.aprilbatchproject.dto.AddressDTO;
-=======
->>>>>>> main
 import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.dto.AddressDTO;
 import com.example.aprilbatchproject.dto.CourseDTO;
@@ -86,7 +82,8 @@ public class DataConverter {
     public static TrainerDTO converToTrainerDTO(Trainers trainers)
     {
         TrainerDTO trainerDTO=new TrainerDTO();
-        trainerDTO.setName(trainers.getName());
+        trainerDTO.setTrainerName(trainers.getName());
+        //trainerDTO.setName(trainers.getName());changes while resolve the conflict
         trainerDTO.setEmail(trainers.getEmail());
         trainerDTO.setPhone(trainers.getPhone());
         trainerDTO.setSpecialization(trainers.getSpecialization());
@@ -118,7 +115,7 @@ public class DataConverter {
         }
         return batchDTOS;
     }
-<<<<<<< Jayita
+
     public static AddressDTO convertAddressToAddresssDto(Students s) {
         AddressDTO addressDTO = new AddressDTO();
         addressDTO.setAddressLine1(s.getAddress()== null ?"":s.getAddress().getAddressLine1());
@@ -127,7 +124,7 @@ public class DataConverter {
         addressDTO.setZipCode(s.getAddress()== null ?"":s.getAddress().getZipCode());
         return addressDTO;
     }
-=======
+
 
     public static StudentDTO convertDTOtoStudents(Students students) {
         // logic to convert StudentsDto to Students
@@ -168,5 +165,4 @@ public class DataConverter {
         return courseDTO;
     }
 
->>>>>>> main
 }

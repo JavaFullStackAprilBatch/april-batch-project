@@ -28,10 +28,7 @@ public interface BatchRepository extends JpaRepository<Batches, Long> {
 
     List<Batches> findByStatus(StatusType statusType);
 
-<<<<<<< Jayita
+
     @Query("select b from Batches b where b.status= :status")
     public List<Batches> findByBatchStatus(StatusType status );
-=======
-
->>>>>>> main
 }

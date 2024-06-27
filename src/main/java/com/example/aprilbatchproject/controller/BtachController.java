@@ -20,11 +20,11 @@ public class BtachController {
 
     @Autowired
     BatchService batchService;
-    @PostMapping("/newStudent")
-    public String createNewStudentBatch(@RequestBody Batches batches) {
-        batchService.createStudentsBatch(batches);
-        return "New Student Data Save Successfully";
-    }
+//    @PostMapping("/newStudent")
+//    public String createNewStudentBatch(@RequestBody Batches batches) {
+//        batchService.createStudentsBatch(batches);
+//        return "New Student Data Save Successfully";
+//    }
 
     @PostMapping("/newBatch")
     public ResponseEntity<ApiResponse<BatchDTO>> createNewBatch(@RequestBody BatchDTO dto) {
