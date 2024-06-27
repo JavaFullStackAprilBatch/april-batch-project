@@ -1,7 +1,4 @@
 package com.example.aprilbatchproject.controller;
-
-
-
 import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.dto.CourseDTO;
 import com.example.aprilbatchproject.entity.Batches;
@@ -23,7 +20,6 @@ public class BtachController {
 
     @Autowired
     BatchService batchService;
-
     @PostMapping("/newStudent")
     public String createNewStudentBatch(@RequestBody Batches batches) {
         batchService.createStudentsBatch(batches);
@@ -35,34 +31,36 @@ public class BtachController {
         BatchDTO createNewBatch = batchService.createBatch(dto);
         return new ResponseEntity<>(new ApiResponse<>(true, "New Batch created successfully", createNewBatch), HttpStatus.CREATED);
     }
+
     @GetMapping("/status")
-    public ResponseEntity<ApiResponse<List<BatchDTO>>> retrieveOngingBatchs(@RequestParam String status){
-        List<BatchDTO> batches =batchService.getOngoingBatchs(status);
+    public ResponseEntity<ApiResponse<List<BatchDTO>>> retrieveOngingBatchs(@RequestParam String status) {
+        List<BatchDTO> batches = batchService.getOngoingBatchs(status);
         ApiResponse<List<BatchDTO>> response = new ApiResponse<>(true, "Batches fetched successfully", batches);
-        return  ResponseEntity.ok(response);
+        return ResponseEntity.ok(response);
     }
 
     //Get the batch detail based on the batch Name
     @GetMapping("/getbatchdetailsbyname")
-    public ResponseEntity<ApiResponse<BatchDTO>> getBatchName(@RequestParam String name)
-    {
-        BatchDTO batchDTOS= batchService.getBatchName(name);
-        ApiResponse<BatchDTO> response=new ApiResponse<>(true,"All the batchdetails retrived",batchDTOS);
+    public ResponseEntity<ApiResponse<BatchDTO>> getBatchName(@RequestParam String name) {
+        BatchDTO batchDTOS = batchService.getBatchName(name);
+        ApiResponse<BatchDTO> response = new ApiResponse<>(true, "All the batchdetails retrived", batchDTOS);
         return new ResponseEntity<>(response, HttpStatus.OK);
 
-
-    @GetMapping("/batchNames")
-    public ResponseEntity<ApiResponse<List<BatchDTO>>> getListOfBatchNames() {
+    }
+        @GetMapping("/batchNames")
+        public ResponseEntity<ApiResponse<List<BatchDTO>>> getListOfBatchNames() {
             List<BatchDTO> batchNames = batchService.getListOfBatchNames();
             return new ResponseEntity<>(new ApiResponse<>(true, "List of batch names fetched successfully", batchNames), HttpStatus.OK);
 
-    }
-    @GetMapping("/batchNamesByStatus")
-    public ResponseEntity<ApiResponse<List<BatchDTO>>> getListOfBatchNamesByStaus(@RequestParam(required = false) StatusType statusType) {
-        List<BatchDTO> batchNames = batchService.getListOfBatchNamesByStatus(statusType);
-        return new ResponseEntity<>(new ApiResponse<>(true, "List of batch names fetched successfully", batchNames), HttpStatus.OK);
+        }
+        @GetMapping("/batchNamesByStatus")
+        public ResponseEntity<ApiResponse<List<BatchDTO>>> getListOfBatchNamesByStaus
+        (@RequestParam(required = false) StatusType statusType){
+            List<BatchDTO> batchNames = batchService.getListOfBatchNamesByStatus(statusType);
+            return new ResponseEntity<>(new ApiResponse<>(true, "List of batch names fetched successfully", batchNames), HttpStatus.OK);
 
 
-    }
+        }
+
 
 }
