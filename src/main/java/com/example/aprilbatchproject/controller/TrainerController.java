@@ -39,5 +39,13 @@ public class TrainerController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 
 	}
+	@PostMapping("/createTrainers")
+	public ResponseEntity<ApiResponse<TrainerDTO>> createTrainers(@RequestBody TrainerDTO trainerDTO) {
+		TrainerDTO createdTrainers = trainerService.createTrainers(trainerDTO);
+		if (createdTrainers != null)
+			return new ResponseEntity<>(new ApiResponse<>(true, "Trainers created successfully", createdTrainers), HttpStatus.CREATED);
+		else
+			return new ResponseEntity<>(new ApiResponse<>(false, "Failed to insert trainers", createdTrainers), HttpStatus.BAD_REQUEST);
 
+	}
 }

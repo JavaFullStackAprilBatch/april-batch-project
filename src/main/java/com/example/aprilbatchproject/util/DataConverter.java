@@ -1,4 +1,9 @@
 package com.example.aprilbatchproject.util;
+<<<<<<< Jayita
+
+import com.example.aprilbatchproject.dto.AddressDTO;
+=======
+>>>>>>> main
 import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.dto.AddressDTO;
 import com.example.aprilbatchproject.dto.CourseDTO;
@@ -34,6 +39,14 @@ public class DataConverter {
             trainerDTOs.add(new TrainerDTO(courseName));
         }
         return trainerDTOs;
+    }
+    public static Trainers convertTrainerDtoToTrainer(TrainerDTO trainerDTO) {
+        Trainers trainers = new Trainers();
+        trainers.setName(trainerDTO.getTrainerName());
+        trainers.setEmail(trainerDTO.getEmail());
+        trainers.setPhone(trainerDTO.getPhone());
+        trainers.setSpecialization(trainerDTO.getSpecialization());
+        return trainers;
     }
 
     //conver the batches to DTO to fetch the name
@@ -105,6 +118,16 @@ public class DataConverter {
         }
         return batchDTOS;
     }
+<<<<<<< Jayita
+    public static AddressDTO convertAddressToAddresssDto(Students s) {
+        AddressDTO addressDTO = new AddressDTO();
+        addressDTO.setAddressLine1(s.getAddress()== null ?"":s.getAddress().getAddressLine1());
+        addressDTO.setCity(s.getAddress()== null ?"":s.getAddress().getCity());
+        addressDTO.setState(s.getAddress()== null ?"":s.getAddress().getState());
+        addressDTO.setZipCode(s.getAddress()== null ?"":s.getAddress().getZipCode());
+        return addressDTO;
+    }
+=======
 
     public static StudentDTO convertDTOtoStudents(Students students) {
         // logic to convert StudentsDto to Students
@@ -145,4 +168,5 @@ public class DataConverter {
         return courseDTO;
     }
 
+>>>>>>> main
 }

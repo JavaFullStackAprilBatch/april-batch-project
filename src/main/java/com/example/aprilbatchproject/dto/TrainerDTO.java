@@ -1,6 +1,9 @@
 package com.example.aprilbatchproject.dto;
 
 public class TrainerDTO {
+    public String getTrainerName() {
+        return trainerName;
+    }
 
     private String trainerName;
     private String email;
@@ -46,14 +49,10 @@ public class TrainerDTO {
         this.trainerName = name;
     }
 
-    // Getter and setter
-    public String getName() {
-        return trainerName;
-    }
-
-    public void setName(String trainerName) {
+    public void setTrainerName(String trainerName) {
         this.trainerName = trainerName;
     }
+
 
 
     public TrainerDTO(){};

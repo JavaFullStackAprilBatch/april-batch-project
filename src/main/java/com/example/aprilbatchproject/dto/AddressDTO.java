@@ -6,8 +6,8 @@ public class AddressDTO {
     private String city;
     private String state;
     private String zipCode;
-
     public AddressDTO(){};
+
     public AddressDTO(String addressLine1, String city, String state, String zipCode){
         this.addressLine1 = addressLine1;
         this.city = city;

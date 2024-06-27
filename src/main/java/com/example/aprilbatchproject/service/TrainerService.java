@@ -13,15 +13,26 @@ import java.util.stream.Collectors;
 
 @Service
 public class TrainerService {
-    @Autowired
-    TrainerRepository trainerRepository;
 
-    public List<TrainerDTO> getAllTrainers() {
-        List<String> trainerNames = trainerRepository.findAllDistinctTrainerNames();
-        if (trainerNames.isEmpty())
-            throw new ResourceNotFoundException("No Trainer found");
-        return DataConverter.convertToTrainerDTOs(trainerNames);
-    }
+	@Autowired
+	TrainerRepository trainerRepository;
+
+
+	public TrainerDTO createTrainers(TrainerDTO trainerDTO) {
+		Trainers trainers = DataConverter.convertTrainerDtoToTrainer(trainerDTO);
+		Trainers trainers1 = trainerRepository.save(trainers);
+		if (trainers1.getName() != null)
+			return trainerDTO;
+		else
+			return null;
+	}
+	
+	public List<TrainerDTO>  getAllTrainers(){
+		List<String> trainerNames = trainerRepository.findAllDistinctTrainerNames();
+		if(trainerNames.isEmpty())
+			throw new ResourceNotFoundException("No Trainer found");
+		return DataConverter.convertToTrainerDTOs(trainerNames);
+	}
 
     public List<TrainerDTO> getTrainerDetailsByName(String trainerName) {
 
@@ -39,6 +50,7 @@ public class TrainerService {
     }
 
 
+
 	public TrainerDTO getTrainerdetailsById(Long id)
 	{
 		try {
@@ -51,6 +63,9 @@ public class TrainerService {
 		}
 
 	}
+
+
+
 
 }
 
