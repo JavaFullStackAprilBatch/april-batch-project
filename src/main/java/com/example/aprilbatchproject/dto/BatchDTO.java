@@ -11,7 +11,7 @@ public class BatchDTO {
     private String trainerName;
     private StatusType batchStatus;
 
-    public long getNoofstudents() {
+   public long getNoofstudents() {
         return Noofstudents;
     }
 
@@ -22,6 +22,18 @@ public class BatchDTO {
     private long Noofstudents;
 
     public BatchDTO() {
+
+    public BatchDTO(String batchName) {
+    }
+
+    public BatchDTO(String batchName, String batchStart, String batchEnd, String courseName, String trainerName, StatusType batchStatus) {
+        this.batchName = batchName;
+        this.batchStart = batchStart;
+        this.batchEnd = batchEnd;
+        this.courseName = courseName;
+        this.trainerName = trainerName;
+        this.batchStatus = batchStatus;
+
     }
 
     public String getBatchName() {
