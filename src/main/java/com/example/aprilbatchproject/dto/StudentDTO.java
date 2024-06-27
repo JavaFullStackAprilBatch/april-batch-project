@@ -7,8 +7,6 @@ import java.util.List;
 public class StudentDTO {
 
 
-
-    private int student_id;
     private String name;
     private AddressDTO address;
     private String email;
@@ -23,19 +21,18 @@ public class StudentDTO {
         this.batchNames = batchNames;
     }
 
-    public  StudentDTO(){};
-    public  StudentDTO(String name, List<String> batchNames, String email, String phone){};
-
-    public StudentDTO(int student_id,String name, AddressDTO address, String email, String phone) {
-        this.student_id = student_id;
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.phone = phone;
+    public StudentDTO() {
     }
 
+    ;
 
-	public void setPhone(String phone) {
+    public StudentDTO(String name, List<String> batchNames, String email, String phone) {
+    }
+
+    ;
+
+
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -77,12 +74,5 @@ public class StudentDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-    public int getStudent_id() {
-        return student_id;
-    }
-
-    public void setStudent_id(int student_id) {
-        this.student_id = student_id;
     }
 }

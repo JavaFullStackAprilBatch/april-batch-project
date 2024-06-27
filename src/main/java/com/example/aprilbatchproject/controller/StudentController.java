@@ -29,8 +29,8 @@ public class StudentController {
 
     @GetMapping("/all")
 
-    public ResponseEntity<ApiResponse<List<StudentDTO>>> getAllStudents() {
-       List<StudentDTO> students = studentService.getAllStudents();
+    public ResponseEntity<ApiResponse<List<Students>>> getAllStudents() {
+       List<Students> students = studentService.getAllStudents();
         return new ResponseEntity<>(new ApiResponse<>(true, "Students fetched successfully", students), HttpStatus.OK);
     	
     }

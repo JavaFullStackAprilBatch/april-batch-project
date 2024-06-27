@@ -63,10 +63,8 @@ public class StudentService {
         return studentDTO;
     }
 //Get all Students
-    public List<StudentDTO> getAllStudents() {
-        return studentRepository.findAll().stream()
-                .map(student -> new StudentDTO(student.getStudent_id(),student.getName(),  DataConverter.convertAddressToAddresssDto(student),student.getEmail(),student.getPhone()))
-                .collect(Collectors.toList());
+    public List<Students> getAllStudents() {
+        return studentRepository.findAll();
     	
 
     }
