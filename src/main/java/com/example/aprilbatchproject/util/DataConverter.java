@@ -1,34 +1,23 @@
 package com.example.aprilbatchproject.util;
-
-
 import com.example.aprilbatchproject.dto.BatchDTO;
-
 import com.example.aprilbatchproject.dto.AddressDTO;
-
 import com.example.aprilbatchproject.dto.CourseDTO;
 import com.example.aprilbatchproject.dto.StudentDTO;
 import com.example.aprilbatchproject.dto.TrainerDTO;
-<<<<<<< HEAD
 import com.example.aprilbatchproject.entity.Courses;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-=======
 import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.entity.Courses;
 import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
-
 import com.example.aprilbatchproject.entity.Address;
-
 import com.example.aprilbatchproject.entity.Students;
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
->>>>>>> bc7a0cf1759e6b3eb27ddd60681ccb087a894889
+
 
 public class DataConverter {
     public static List<CourseDTO> convertToCourseDTOs(List<String> courseNames) {
@@ -45,13 +34,6 @@ public class DataConverter {
         }
         return trainerDTOs;
     }
-<<<<<<< HEAD
-	
-	
-	
-=======
-
-
     //TrinerDto Conversion
     public static TrainerDTO converToTrainerDTO(Trainers trainers)
     {
@@ -117,5 +99,14 @@ public class DataConverter {
     }
 
 
->>>>>>> bc7a0cf1759e6b3eb27ddd60681ccb087a894889
+
+    //convertcoursestoDTo
+    public static CourseDTO convertcoursestoDTo(Courses courses)
+    {
+        CourseDTO courseDTO=new CourseDTO();
+        courseDTO.setCourseName(courses.getCourseName());
+        courseDTO.setCourseContent(courses.getCourseContent());
+        return courseDTO;
+    }
+
 }

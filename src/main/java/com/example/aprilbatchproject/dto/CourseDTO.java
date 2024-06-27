@@ -23,12 +23,12 @@ public class CourseDTO {
 	public CourseDTO(String courseName) {
         this.courseName = courseName;
     }
-	
+
 	 public CourseDTO() {
 			// TODO Auto-generated constructor stub
 		}
 
-   
+
 
 	public String getCourseName() {
         return courseName;

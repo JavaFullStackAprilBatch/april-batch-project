@@ -70,7 +70,7 @@ public class StudentService {
 
     //Update Student By id
 
-    public StudentDTO updateStudentById(Long id, StudentDTO studentDTO) {
+    public StudentDTO updateStudentById(Integer id, StudentDTO studentDTO) {
         Students student = studentRepository.findById(id).orElseThrow(()-> new RuntimeException("Student id not found"+ id));
         createOrUpdateStudent(student,studentDTO);
         Students updatedstudent=studentRepository.save(student);
