@@ -48,7 +48,7 @@ public class DataConverter {
 
 
         if(batches.getCourses()!=null){
-            batchDTO.setCourseName(batches.getCourses().getCourse_name());
+            batchDTO.setCourseName(batches.getCourses().getCourseName());
         }
         else {
             batchDTO.setCourseName(null);

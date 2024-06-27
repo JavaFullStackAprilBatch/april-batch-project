@@ -61,7 +61,7 @@ public class CourseController {
 
 
 	//getendpoint course information based on name
-	@GetMapping("/\t\n")
+	@GetMapping("/coursedetailsByName")
 
 	public ResponseEntity<ApiResponse<CourseDTO>> getCoursedeatilsByName(@RequestParam String name) {
 		try {
