@@ -42,6 +42,15 @@ public class BtachController {
         return  ResponseEntity.ok(response);
     }
 
+    //Get the batch detail based on the batch Name
+    @GetMapping("/getbatchdetailsbyname")
+    public ResponseEntity<ApiResponse<BatchDTO>> getBatchName(@RequestParam String name)
+    {
+        BatchDTO batchDTOS= batchService.getBatchName(name);
+        ApiResponse<BatchDTO> response=new ApiResponse<>(true,"All the batchdetails retrived",batchDTOS);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+
+
     @GetMapping("/batchNames")
     public ResponseEntity<ApiResponse<List<BatchDTO>>> getListOfBatchNames() {
             List<BatchDTO> batchNames = batchService.getListOfBatchNames();
@@ -52,6 +61,7 @@ public class BtachController {
     public ResponseEntity<ApiResponse<List<BatchDTO>>> getListOfBatchNamesByStaus(@RequestParam(required = false) StatusType statusType) {
         List<BatchDTO> batchNames = batchService.getListOfBatchNamesByStatus(statusType);
         return new ResponseEntity<>(new ApiResponse<>(true, "List of batch names fetched successfully", batchNames), HttpStatus.OK);
+
 
     }
 
