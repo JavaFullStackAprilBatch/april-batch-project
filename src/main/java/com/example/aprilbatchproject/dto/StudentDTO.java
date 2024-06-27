@@ -11,6 +11,7 @@ public class StudentDTO {
     private String phone;
     private List<String> batchNames;
 
+<<<<<<< Jayita
     public StudentDTO() {
     }
 
@@ -22,6 +23,9 @@ public class StudentDTO {
         this.batchNames = batchNames;
     }
 
+=======
+    public  StudentDTO(){};
+>>>>>>> main
     public StudentDTO(String name, List<String> batchNames, String email, String phone) {
         this.name = name;
         this.batchNames = batchNames;
@@ -29,7 +33,9 @@ public class StudentDTO {
         this.phone = phone;
     }
 
-    public void setPhone(String phone) {
+    
+
+	public void setPhone(String phone) {
         this.phone = phone;
     }
 

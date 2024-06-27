@@ -9,6 +9,7 @@ import com.example.aprilbatchproject.entity.Courses;
 import com.example.aprilbatchproject.entity.StatusType;
 import com.example.aprilbatchproject.entity.StatusType;
 import com.example.aprilbatchproject.entity.Trainers;
+import com.example.aprilbatchproject.exception.BatchNotFoundException;
 import com.example.aprilbatchproject.exception.DuplicateResourceFoundException;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.repository.BatchRepository;
@@ -86,6 +87,17 @@ public class BatchService {
         return DataConverter.convertToBatchDTOs(batches);
     }
 
+
+    ////Get the batch detail based on the batch Name
+    public BatchDTO getBatchName(String name) {
+        Batches batches = batchRepository.getBatchByNameIgnoreCase(name);
+        if (batches == null) {
+            throw new BatchNotFoundException("Batch name not found");
+        }
+        return DataConverter.convertDTOtoBatches(batches);
+    }
+
+
     public List<BatchDTO> getListOfBatchNames() {
         try {
          return  batchRepository.findAll()
@@ -116,4 +128,5 @@ public class BatchService {
         }
 
     }
+
 }
