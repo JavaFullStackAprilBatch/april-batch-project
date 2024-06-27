@@ -27,7 +27,7 @@ public class StudentController {
     }
 
 
-    @GetMapping()
+    @GetMapping("/all")
 
     public ResponseEntity<ApiResponse<List<StudentDTO>>> getAllStudents() {
        List<StudentDTO> students = studentService.getAllStudents();

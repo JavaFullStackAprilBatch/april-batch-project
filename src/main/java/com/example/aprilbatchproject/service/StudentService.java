@@ -64,11 +64,11 @@ public class StudentService {
     }
 //Get all Students
     public List<StudentDTO> getAllStudents() {
-//        return studentRepository.findAll().stream()
-//                .map(student -> new StudentDTO(student.getStudent_id(), student.getName(), null /* Add batch IDs */))
-//                .collect(Collectors.toList());
+        return studentRepository.findAll().stream()
+                .map(student -> new StudentDTO(student.getStudent_id(),student.getName(),  DataConverter.convertAddressToAddresssDto(student),student.getEmail(),student.getPhone()))
+                .collect(Collectors.toList());
     	
-        return null;
+
     }
 
     //Update Student By id
