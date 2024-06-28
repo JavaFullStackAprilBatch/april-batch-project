@@ -10,7 +10,7 @@ public class Students {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int student_id;
+    private Long student_id;
     private String name;
     private String email;
     private String phone;
@@ -30,11 +30,11 @@ public class Students {
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private Address address;
 
-    public int getStudent_id() {
+    public Long getStudent_id() {
         return student_id;
     }
 
-    public void setStudent_id(int student_id) {
+    public void setStudent_id(Long student_id) {
         this.student_id = student_id;
     }
 
