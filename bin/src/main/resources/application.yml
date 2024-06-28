@@ -9,9 +9,12 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        default_schema: aprilbatch
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+        ddl-auto: none
+      # ddl-auto: create
+      # ddl-auto: update
   api-docs:
     path: /v3/api-docs
   swagger-ui:
