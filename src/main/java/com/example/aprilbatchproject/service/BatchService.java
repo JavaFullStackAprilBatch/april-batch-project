@@ -105,7 +105,7 @@ public class BatchService {
 			tempBatch.setBatchEnd(batches.get(i).getEnd_date());
 			tempBatch.setBatchStatus(batches.get(i).getStatus());
 			tempBatch.setTrainerName(batches.get(i).getTrainer().getName());
-			tempBatch.setCourseName(batches.get(i).getCourses().getCourse_name());
+			tempBatch.setCourseName(batches.get(i).getCourses().getCourseName());
 			
 			batchDTO.add(tempBatch);
 		}

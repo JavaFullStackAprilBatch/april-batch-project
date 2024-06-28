@@ -37,17 +37,18 @@ public class StudentService {
     StudentUtil studentUtil;
 
 
-    public StudentDTO createStudent(StudentDTO studentDTO) {
-        // Convert DTO to entity
-        Students student = new Students();
-        student.setName(studentDTO.getName());
-        student.setAddress(studentUtil.GetStudentAddress(studentDTO, student.getAddress()));
-        student.setEmail(studentDTO.getEmail());
-        student.setPhone(studentDTO.getPhone());
-    }
+//    public StudentDTO createStudent(StudentDTO studentDTO) {
+//        // Convert DTO to entity
+//        Students student = new Students();
+//        student.setName(studentDTO.getName());
+//        student.setAddress(studentUtil.GetStudentAddress(studentDTO, student.getAddress()));
+//        student.setEmail(studentDTO.getEmail());
+//        student.setPhone(studentDTO.getPhone());
+//    }
 //create student details
     public StudentDTO createOrUpdateStudent(Students student,StudentDTO studentDTO) {
         try {
+
             student.setName(studentDTO.getName());
             student.setEmail(studentDTO.getEmail());
             student.setPhone(studentDTO.getPhone());
@@ -72,34 +73,48 @@ public class StudentService {
         }
 
         Students savedStudent = studentRepository.save(student);
-        return studentDTO;
+
+        return DataConverter.convertDTOtoStudents(savedStudent);
     }
+
+    //Update Student By id
+    public StudentDTO updateStudentById(Integer id, StudentDTO studentDTO) {
+        Students student = studentRepository.findById(id).orElseThrow(()-> new RuntimeException("Student id not found"+ id));
+        createOrUpdateStudent(student,studentDTO);
+        Students updatedstudent=studentRepository.save(student);
+        return DataConverter.convertDTOtoStudents(updatedstudent);
+    }
+
+
 //Get all Students
-    public List<Students> getAllStudents() {
-        return studentRepository.findAll();
-    	
+    public List<StudentDTO> getAllStudents() {
+       List<Students> getallstudents=studentRepository.findAll();
+       return getallstudents.stream().map(DataConverter::convertStudentsToDTO).collect(Collectors.toList());
 
     }
 
-	public List<StudentDTO> getStudentByName(String name) {
-		
-		List<Students> studentsByName = studentRepository.findByName(name);
-		List<StudentDTO> studentsDTO = new ArrayList<StudentDTO>();
-		StudentDTO tempDTO;
-		List<Batches> batches;
-		for( int i=0; i<studentsByName.size() ; i++) {
-			List<String> batchNames = new ArrayList<String>();
-			batches = studentsByName.get(i).getBatches();
-			for (Batches batch :batches) {
-				batchNames.add(batch.getBatch_name());
-			}
-			tempDTO = new StudentDTO(studentsByName.get(i).getName(), batchNames, studentsByName.get(i).getEmail(), studentsByName.get(i).getPhone());
-			studentsDTO.add(tempDTO);
-		}
-				
-		return studentsDTO;
-	}
 
+//    //Listof students byname
+//	public List<StudentDTO> getStudentByName(String name) {
+//
+//		List<Students> studentsByName = studentRepository.findByName(name);
+//		List<StudentDTO> studentsDTO = new ArrayList<StudentDTO>();
+//		StudentDTO tempDTO;
+//		List<Batches> batches;
+//		for( int i=0; i<studentsByName.size() ; i++) {
+//			List<String> batchNames = new ArrayList<String>();
+//			batches = studentsByName.get(i).getBatches();
+//			for (Batches batch :batches) {
+//				batchNames.add(batch.getBatch_name());
+//			}
+//			tempDTO = new StudentDTO(studentsByName.get(i).getName(), batchNames, studentsByName.get(i).getEmail(), studentsByName.get(i).getPhone());
+//			studentsDTO.add(tempDTO);
+//		}
+//
+//		return studentsDTO;
+//	}
+
+    //getstudent by name
        public StudentDTO getStudentByName(String name, StudentDTO studentDTO) {
         Students existingStudent = null;
         List<Batches> batches;
@@ -133,16 +148,10 @@ public class StudentService {
 
         return studentDTO;
     }
-    //Update Student By id
-
-    public StudentDTO updateStudentById(Integer id, StudentDTO studentDTO) {
-        Students student = studentRepository.findById(id).orElseThrow(()-> new RuntimeException("Student id not found"+ id));
-        createOrUpdateStudent(student,studentDTO);
-        Students updatedstudent=studentRepository.save(student);
-        return DataConverter.convertDTOtoStudents(updatedstudent);
-    }
 
 
+
+//getstudent by status
     public List<StudentDTO> getStudentsByStatus(String status) {
 
         StatusType statusType = StatusType.valueOf(status);
@@ -158,6 +167,7 @@ public class StudentService {
         return studentDTOS;
     }
 
+    //getbatch list
     private List<String> getBatchList(Students s) {
         List<String> batchNames = new ArrayList<>();
         batchNames = s.getBatches().stream().map(a -> a.getBatch_name()).collect(Collectors.toList());
@@ -165,22 +175,22 @@ public class StudentService {
     }
 
       
-	public StudentDTO getStudent(Long id) {
+	public StudentDTO getStudent(Integer id) {
 		
 		try {
 			
 		Students student = studentRepository.findById(id).get();
 		
-		List<String> batchNames =  new ArrayList<String>();
-		for (int i=0 ; i< student.getBatches().size() ; i++) {
-			batchNames.add(student.getBatches().get(i).getBatch_name());
-		}
+//		List<String> batchNames =  new ArrayList<String>();
+//		for (int i=0 ; i< student.getBatches().size() ; i++) {
+//			batchNames.add(student.getBatches().get(i).getBatch_name());
+//		}
 		
-		StudentDTO studentDto = new StudentDTO(student.getName(), batchNames, student.getEmail(), student.getPhone());
-		studentDto.setAddress(new AddressDTO(student.getAddress().getAddressLine1(), student.getAddress().getCity(),
-				student.getAddress().getState(), student.getAddress().getZipCode()));
+//		StudentDTO studentDto = new StudentDTO(student.getName(), batchNames, student.getEmail(), student.getPhone());
+//		studentDto.setAddress(new AddressDTO(student.getAddress().getAddressLine1(), student.getAddress().getCity(),
+//				student.getAddress().getState(), student.getAddress().getZipCode()));
 		
-		return studentDto;
+		return DataConverter.convertDTOtoStudents(student);
 		}
 		
 		catch (NoSuchElementException e) {
