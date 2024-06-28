@@ -36,7 +36,7 @@ public class Batches {
     private StatusType status;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "courses_id")
+    @JoinColumn(name = "course_id")
     private Courses courses;
 
     @ManyToOne(fetch = FetchType.EAGER)

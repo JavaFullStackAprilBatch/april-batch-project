@@ -16,8 +16,8 @@ public class CompanyService {
     @Autowired
     CompanyRepository companyRepository;
 
-    @Autowired
-    AddressRepository addressRepository;
+    /*@Autowired
+    AddressRepository addressRepository;*/
 
     public Company crateCompany(Company company) {
 
