@@ -32,6 +32,18 @@ public class StudentUtil {
         return batches;
     }
 
+    public Address GetStudentAddress(StudentDTO dto, Address address){
+        Address changeAddress = null;
+        if (address != null) {
+            changeAddress = addressRepository.findByAddressId(address.getAddress_id());
+           changeAddress = SetAddress(changeAddress,dto);
+        } else{
+        	address = new Address();
+            changeAddress = SetAddress(address,dto);;
+        }
+        return changeAddress;
+    }
+
     public Address GetStudentAddress(StudentDTO studentDTO, Address address) {
         if (studentDTO.getAddress() != null) {
             if (address == null) {

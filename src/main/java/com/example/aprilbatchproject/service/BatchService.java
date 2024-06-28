@@ -1,13 +1,15 @@
 package com.example.aprilbatchproject.service;
 
-
-
 import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.entity.Courses;
 import com.example.aprilbatchproject.entity.StatusType;
+
+import com.example.aprilbatchproject.entity.Students;
+
 import com.example.aprilbatchproject.entity.StatusType;
+
 import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.exception.BatchNotFoundException;
 import com.example.aprilbatchproject.exception.DuplicateResourceFoundException;
@@ -15,17 +17,21 @@ import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.repository.BatchRepository;
 import com.example.aprilbatchproject.repository.TrainerRepository;
 import com.example.aprilbatchproject.repository.CourseRepository;
+import com.example.aprilbatchproject.repository.StudentRepository;
 import com.example.aprilbatchproject.repository.TrainerRepository;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
 import com.example.aprilbatchproject.util.DataConverter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
-import java.util.List;
 
 @Service
 public class BatchService {
@@ -36,7 +42,12 @@ public class BatchService {
     @Autowired
     CourseRepository courseRepository;
 
+    @Autowired
+    StudentRepository studentRepository;
+    
+
     public String createStudentsBatch(Batches batches) {
+
         batchRepository.save(batches);
         return "Data saved";
     }
@@ -79,6 +90,29 @@ public class BatchService {
         return dto;
     }
 
+
+	public List<BatchDTO> findAllCompletedBatchDetail() {
+		
+		List<Batches> batches = new ArrayList<Batches>();
+		batches = batchRepository.findByStatus(StatusType.Completed);
+		List<BatchDTO> batchDTO = new ArrayList<BatchDTO>();
+		
+		for (int i=0;i<batches.size();i++) {
+			
+			BatchDTO tempBatch = new BatchDTO();
+			tempBatch.setBatchName(batches.get(i).getBatch_name());
+			tempBatch.setBatchStart(batches.get(i).getStart_date());
+			tempBatch.setBatchEnd(batches.get(i).getEnd_date());
+			tempBatch.setBatchStatus(batches.get(i).getStatus());
+			tempBatch.setTrainerName(batches.get(i).getTrainer().getName());
+			tempBatch.setCourseName(batches.get(i).getCourses().getCourse_name());
+			
+			batchDTO.add(tempBatch);
+		}
+		
+		return batchDTO;
+	}
+
     public List<BatchDTO>getOngoingBatchs(String status){
 
        List<Batches> batches =  batchRepository.findByStatusType(status);
@@ -86,6 +120,27 @@ public class BatchService {
             throw new ResourceNotFoundException("No Batches found");
         return DataConverter.convertToBatchDTOs(batches);
     }
+
+
+    public String delete(String name) {
+		Batches batch = batchRepository.findByBatchName(name);
+		 if (batch != null) {
+			 
+			 for (Students stu : batch.getStudents()) {
+				 stu.getBatches().remove(batch);
+			 }
+			
+			 studentRepository.saveAll(batch.getStudents());
+			 batch.setCourses(null);
+			 batchRepository.deleteById(batch.getId());
+			 
+			 return batch.getBatch_name();
+		 }
+		 else {
+			 throw new ResourceNotFoundException("Batch Not Found");
+		 }
+	
+	}
 
 
     ////Get the batch detail based on the batch Name

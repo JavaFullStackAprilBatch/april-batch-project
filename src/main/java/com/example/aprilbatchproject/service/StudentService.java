@@ -15,6 +15,9 @@ import com.example.aprilbatchproject.util.StudentUtil;
 import org.springframework.stereotype.Service;
 import com.example.aprilbatchproject.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.NoSuchElementException;
+
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,15 @@ public class StudentService {
     @Autowired
     StudentUtil studentUtil;
 
+
+    public StudentDTO createStudent(StudentDTO studentDTO) {
+        // Convert DTO to entity
+        Students student = new Students();
+        student.setName(studentDTO.getName());
+        student.setAddress(studentUtil.GetStudentAddress(studentDTO, student.getAddress()));
+        student.setEmail(studentDTO.getEmail());
+        student.setPhone(studentDTO.getPhone());
+    }
 //create student details
     public StudentDTO createOrUpdateStudent(Students student,StudentDTO studentDTO) {
         try {
@@ -69,6 +81,58 @@ public class StudentService {
 
     }
 
+	public List<StudentDTO> getStudentByName(String name) {
+		
+		List<Students> studentsByName = studentRepository.findByName(name);
+		List<StudentDTO> studentsDTO = new ArrayList<StudentDTO>();
+		StudentDTO tempDTO;
+		List<Batches> batches;
+		for( int i=0; i<studentsByName.size() ; i++) {
+			List<String> batchNames = new ArrayList<String>();
+			batches = studentsByName.get(i).getBatches();
+			for (Batches batch :batches) {
+				batchNames.add(batch.getBatch_name());
+			}
+			tempDTO = new StudentDTO(studentsByName.get(i).getName(), batchNames, studentsByName.get(i).getEmail(), studentsByName.get(i).getPhone());
+			studentsDTO.add(tempDTO);
+		}
+				
+		return studentsDTO;
+	}
+
+       public StudentDTO getStudentByName(String name, StudentDTO studentDTO) {
+        Students existingStudent = null;
+        List<Batches> batches;
+        Address address = null;
+
+        try {
+            existingStudent = studentRepository.findByStudentName(name);
+            address = studentUtil.GetStudentAddress(studentDTO, existingStudent.getAddress());
+            existingStudent.setAddress(address);
+            existingStudent.setEmail(studentDTO.getEmail());
+            existingStudent.setPhone(studentDTO.getPhone());
+
+            batches = studentUtil.GetBatchNames(studentDTO);
+            existingStudent.setBatches(batches);
+
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+
+        if (existingStudent == null) {
+            throw new ResourceNotFoundException("No details found with student name: " + name);
+        }
+        if(batches.isEmpty()){
+            throw new ResourceNotFoundException("No Batch details found for this student: " + name);
+        }
+        if(address == null){
+            throw new ResourceNotFoundException("No Address details found for this student: " + name);
+        }
+        // Save entity
+        Students savedStudent = studentRepository.save(existingStudent);
+
+        return studentDTO;
+    }
     //Update Student By id
 
     public StudentDTO updateStudentById(Integer id, StudentDTO studentDTO) {
@@ -100,4 +164,29 @@ public class StudentService {
         return batchNames;
     }
 
+      
+	public StudentDTO getStudent(Long id) {
+		
+		try {
+			
+		Students student = studentRepository.findById(id).get();
+		
+		List<String> batchNames =  new ArrayList<String>();
+		for (int i=0 ; i< student.getBatches().size() ; i++) {
+			batchNames.add(student.getBatches().get(i).getBatch_name());
+		}
+		
+		StudentDTO studentDto = new StudentDTO(student.getName(), batchNames, student.getEmail(), student.getPhone());
+		studentDto.setAddress(new AddressDTO(student.getAddress().getAddressLine1(), student.getAddress().getCity(),
+				student.getAddress().getState(), student.getAddress().getZipCode()));
+		
+		return studentDto;
+		}
+		
+		catch (NoSuchElementException e) {
+			throw new ResourceNotFoundException("No Student found for that id");
+		}
+	}
+
 }
+
