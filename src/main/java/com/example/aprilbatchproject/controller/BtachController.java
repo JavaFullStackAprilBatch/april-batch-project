@@ -1,7 +1,5 @@
 package com.example.aprilbatchproject.controller;
 import com.example.aprilbatchproject.dto.BatchDTO;
-import com.example.aprilbatchproject.dto.CourseDTO;
-import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.entity.StatusType;
 import com.example.aprilbatchproject.entity.StatusType;
 import com.example.aprilbatchproject.response.ApiResponse;

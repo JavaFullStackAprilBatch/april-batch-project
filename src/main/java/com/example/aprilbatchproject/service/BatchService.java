@@ -8,9 +8,6 @@ import com.example.aprilbatchproject.entity.StatusType;
 
 import com.example.aprilbatchproject.entity.Students;
 
-import com.example.aprilbatchproject.entity.StatusType;
-
-import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.exception.BatchNotFoundException;
 import com.example.aprilbatchproject.exception.DuplicateResourceFoundException;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
@@ -18,16 +15,12 @@ import com.example.aprilbatchproject.repository.BatchRepository;
 import com.example.aprilbatchproject.repository.TrainerRepository;
 import com.example.aprilbatchproject.repository.CourseRepository;
 import com.example.aprilbatchproject.repository.StudentRepository;
-import com.example.aprilbatchproject.repository.TrainerRepository;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.aprilbatchproject.util.DataConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -98,14 +91,10 @@ public class BatchService {
 		List<BatchDTO> batchDTO = new ArrayList<BatchDTO>();
 		
 		for (int i=0;i<batches.size();i++) {
-			
-			BatchDTO tempBatch = new BatchDTO();
-			tempBatch.setBatchName(batches.get(i).getBatch_name());
-			tempBatch.setBatchStart(batches.get(i).getStart_date());
-			tempBatch.setBatchEnd(batches.get(i).getEnd_date());
-			tempBatch.setBatchStatus(batches.get(i).getStatus());
-			tempBatch.setTrainerName(batches.get(i).getTrainer().getName());
-			tempBatch.setCourseName(batches.get(i).getCourses().getCourseName());
+
+			Batches batch  = batches.get(i);
+			BatchDTO tempBatch = new BatchDTO(batch.getBatch_name(), batch.getStart_date(), batch.getEnd_date(), batch.getCourses().getCourseName(),
+					batch.getTrainer().getName(), batch.getStatus());
 			
 			batchDTO.add(tempBatch);
 		}

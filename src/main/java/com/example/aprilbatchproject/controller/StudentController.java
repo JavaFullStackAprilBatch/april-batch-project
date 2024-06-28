@@ -60,7 +60,8 @@ public class StudentController {
   
   
     @PutMapping("/updatestudentbyid/{id}")
-    public ResponseEntity<ApiResponse<StudentDTO>> updateStudentById(@PathVariable Integer id, @RequestBody StudentDTO studentDTO)
+    public ResponseEntity<ApiResponse<StudentDTO>> updateStudentById(@PathVariable Long id, @RequestBody StudentDTO studentDTO)
+
     {
         StudentDTO studentDTObyid = studentService.updateStudentById(id,studentDTO);
         ApiResponse<StudentDTO> response = new ApiResponse<>(true,"student data updated",studentDTObyid);

@@ -1,13 +1,10 @@
 package com.example.aprilbatchproject.repository;
 
 
-import com.example.aprilbatchproject.dto.BatchDTO;
 import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.entity.StatusType;
 
 import java.util.List;
-
-import com.example.aprilbatchproject.entity.StatusType;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -29,8 +26,6 @@ public interface BatchRepository extends JpaRepository<Batches, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM batches b WHERE LOWER(b.batch_name) = LOWER(:batchName)")
     public Batches getBatchByNameIgnoreCase(@Param("batchName") String batchName);
-
-    List<Batches> findByStatus(StatusType statusType);
 
 
     @Query("select b from Batches b where b.status= :status")
