@@ -14,6 +14,7 @@ public class Batches {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "batch_id")
     private long id;
+    @Column(unique = true, nullable = false)
     private String batch_name;
 
     //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")

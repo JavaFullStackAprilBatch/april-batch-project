@@ -18,4 +18,8 @@ public interface StudentRepository extends JpaRepository<Students, Long> {
     @Query(nativeQuery = true, value = "select * from students s where s.name = :name")
     Students findByStudentName(String name);
 
+
+    @Query("select DISTINCT s from Students s left join fetch s.batches bd where bd.id= :id")
+   List<Students> findByBatch(long id);
+
 }

@@ -5,19 +5,32 @@ import com.example.aprilbatchproject.entity.Address;
 import java.util.List;
 
 public class StudentDTO {
+
+
     private String name;
     private AddressDTO address;
     private String email;
     private String phone;
     private List<String> batchNames;
 
-
-    public StudentDTO(String name, List<String> batchNames, String email, String phone) {
+    public StudentDTO(String name, AddressDTO address, String email, String phone, List<String> batchNames) {
         this.name = name;
-        this.batchNames = batchNames;
+        this.address = address;
         this.email = email;
         this.phone = phone;
+        this.batchNames = batchNames;
     }
+
+    public StudentDTO() {
+    }
+
+    ;
+
+    public StudentDTO(String name, List<String> batchNames, String email, String phone) {
+    }
+
+    ;
+
 
     public void setPhone(String phone) {
         this.phone = phone;

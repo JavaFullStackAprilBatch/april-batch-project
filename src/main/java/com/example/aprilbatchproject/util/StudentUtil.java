@@ -21,10 +21,10 @@ public class StudentUtil {
     AddressRepository addressRepository;
 
 
-    public List<Batches> GetBatchNames(StudentDTO studentDTO) {
+    public List<Batches> GetBatchNames(StudentDTO studentDTO){
 
         List<String> batchNames = studentDTO.getBatchNames();
-        List<Batches> batches = new ArrayList();
+        List<Batches> batches = new ArrayList<Batches>();
         for (String batchName : batchNames) {
             Batches batch = batchRepository.findByBatchName(batchName);
             batches.add(batch);
@@ -38,10 +38,11 @@ public class StudentUtil {
             changeAddress = addressRepository.findByAddressId(address.getAddress_id());
            changeAddress = SetAddress(changeAddress,dto);
         } else{
+        	address = new Address();
             changeAddress = SetAddress(address,dto);;
         }
         return changeAddress;
-            }
+    }
 
     private Address SetAddress(Address address, StudentDTO dto){
         address.setAddressLine1(dto.getAddress().getAddressLine1());
@@ -50,5 +51,4 @@ public class StudentUtil {
         address.setZipCode(dto.getAddress().getZipCode());
         return address;
     }
-
 }
