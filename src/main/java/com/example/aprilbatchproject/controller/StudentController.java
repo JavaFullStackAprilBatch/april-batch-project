@@ -29,18 +29,18 @@ public class StudentController {
 
     @GetMapping("/all")
 
-    public ResponseEntity<ApiResponse<List<Students>>> getAllStudents() {
-       List<Students> students = studentService.getAllStudents();
+    public ResponseEntity<ApiResponse<List<StudentDTO>>> getAllStudents() {
+       List<StudentDTO> students = studentService.getAllStudents();
         return new ResponseEntity<>(new ApiResponse<>(true, "Students fetched successfully", students), HttpStatus.OK);
     	
     }
   
-    
-    @GetMapping("/getStudentByName")
-    public ResponseEntity<ApiResponse<List<StudentDTO>>> getStudentsByName(@RequestParam String name){
-    	List<StudentDTO> students = studentService.getStudentByName(name);
-		return new ResponseEntity<>(new ApiResponse<>(true, "Students fetched successfully", students), HttpStatus.OK); 
-    }
+//
+//    @GetMapping("/getStudentByName")
+//    public ResponseEntity<ApiResponse<List<StudentDTO>>> getStudentsByName(@RequestParam String name){
+//    	List<StudentDTO> students = studentService.getStudentByName(name);
+//		return new ResponseEntity<>(new ApiResponse<>(true, "Students fetched successfully", students), HttpStatus.OK);
+//    }
 
 
     @PutMapping("/updatestudentbyname")
@@ -52,7 +52,7 @@ public class StudentController {
     }
     
     @GetMapping("/getstudent/{id}")
-    public ResponseEntity<ApiResponse<StudentDTO>> getStudentById(@PathVariable Long id){
+    public ResponseEntity<ApiResponse<StudentDTO>> getStudentById(@PathVariable Integer id){
     	StudentDTO student = studentService.getStudent(id);
 
 		return new ResponseEntity<>(new ApiResponse<>(true, "Student fetched successfully", student), HttpStatus.OK);

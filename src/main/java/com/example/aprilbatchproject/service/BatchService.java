@@ -91,6 +91,7 @@ public class BatchService {
 		List<BatchDTO> batchDTO = new ArrayList<BatchDTO>();
 		
 		for (int i=0;i<batches.size();i++) {
+
 			Batches batch  = batches.get(i);
 			BatchDTO tempBatch = new BatchDTO(batch.getBatch_name(), batch.getStart_date(), batch.getEnd_date(), batch.getCourses().getCourseName(),
 					batch.getTrainer().getName(), batch.getStatus());

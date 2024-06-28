@@ -46,7 +46,6 @@ public class DataConverter {
     }
 
     //conver the batches to DTO to fetch the name
-
     public static BatchDTO convertDTOtoBatches(Batches batches)
     {
         BatchDTO batchDTO=new BatchDTO();
@@ -54,8 +53,6 @@ public class DataConverter {
         batchDTO.setBatchName(batches.getBatch_name());
         batchDTO.setBatchStart(batches.getStart_date());
         batchDTO.setBatchEnd(batches.getEnd_date());
-
-
         if(batches.getCourses()!=null){
             batchDTO.setCourseName(batches.getCourses().getCourseName());
         }
@@ -68,8 +65,6 @@ public class DataConverter {
         }else {
             batchDTO.setTrainerName(null);
         }
-
-
         batchDTO.setBatchStatus(batches.getStatus());
         long studentscount= batches.getStudents().stream().map(
                 Students::getName
@@ -125,12 +120,10 @@ public class DataConverter {
         return addressDTO;
     }
 
-
+//Convertstudents to StudnetDTO
     public static StudentDTO convertDTOtoStudents(Students students) {
-        // logic to convert StudentsDto to Students
-
         StudentDTO studentDTO = new StudentDTO();
-
+    studentDTO.setStudent_id(students.getStudent_id());
         studentDTO.setName(students.getName());
         studentDTO.setEmail(students.getEmail());
         studentDTO.setPhone(students.getPhone());
@@ -154,8 +147,6 @@ public class DataConverter {
         return studentDTO;
     }
 
-
-
     //convertcoursestoDTo
     public static CourseDTO convertcoursestoDTo(Courses courses)
     {
@@ -164,5 +155,27 @@ public class DataConverter {
         courseDTO.setCourseContent(courses.getCourseContent());
         return courseDTO;
     }
+
+    //studentdto without batchname
+    public static StudentDTO convertStudentsToDTO(Students students) {
+        StudentDTO studentDTO = new StudentDTO();
+
+        studentDTO.setStudent_id(students.getStudent_id()); //with id
+        studentDTO.setName(students.getName());
+        studentDTO.setEmail(students.getEmail());
+        studentDTO.setPhone(students.getPhone());
+
+        if (students.getAddress() != null) {
+            AddressDTO addressDTO = new AddressDTO();
+            Address address = students.getAddress();
+            addressDTO.setAddressLine1(address.getAddressLine1());
+            addressDTO.setCity(address.getCity());
+            addressDTO.setState(address.getState());
+            addressDTO.setZipCode(address.getZipCode());
+            studentDTO.setAddress(addressDTO);
+        }
+            return studentDTO;
+    }
+
 
 }
