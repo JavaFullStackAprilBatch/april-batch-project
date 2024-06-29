@@ -159,7 +159,6 @@ public class DataConverter {
     //studentdto without batchname
     public static StudentDTO convertStudentsToDTO(Students students) {
         StudentDTO studentDTO = new StudentDTO();
-
         studentDTO.setStudent_id(students.getStudent_id()); //with id
         studentDTO.setName(students.getName());
         studentDTO.setEmail(students.getEmail());

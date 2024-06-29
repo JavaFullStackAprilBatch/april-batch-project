@@ -1,6 +1,7 @@
 package com.example.aprilbatchproject.dto;
 
 import com.example.aprilbatchproject.entity.Address;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ public class StudentDTO {
     private AddressDTO address;
     private String email;
     private String phone;
+
+    @JsonIgnore
     private List<String> batchNames;
 
     public StudentDTO(int student_id, String name, AddressDTO address, String email, String phone) {

@@ -89,8 +89,9 @@ public class StudentService {
 //Get all Students
     public List<StudentDTO> getAllStudents() {
        List<Students> getallstudents=studentRepository.findAll();
-       return getallstudents.stream().map(DataConverter::convertStudentsToDTO).collect(Collectors.toList());
 
+      return getallstudents.stream().map(DataConverter::convertStudentsToDTO).collect(Collectors.toList());
+       // return DataConverter.convertStudentsToDTO(getallstudents);
     }
 
 
