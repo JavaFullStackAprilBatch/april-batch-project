@@ -1,10 +1,6 @@
 package com.example.aprilbatchproject.util;
+import com.example.aprilbatchproject.dto.*;
 import com.example.aprilbatchproject.dto.AddressDTO;
-import com.example.aprilbatchproject.dto.BatchDTO;
-import com.example.aprilbatchproject.dto.AddressDTO;
-import com.example.aprilbatchproject.dto.CourseDTO;
-import com.example.aprilbatchproject.dto.StudentDTO;
-import com.example.aprilbatchproject.dto.TrainerDTO;
 import com.example.aprilbatchproject.entity.Courses;
 import java.util.ArrayList;
 import java.util.List;
@@ -157,8 +153,8 @@ public class DataConverter {
     }
 
     //studentdto without batchname
-    public static StudentDTO convertStudentsToDTO(Students students) {
-        StudentDTO studentDTO = new StudentDTO();
+    public static StudentDTOwithoutBatchName convertStudentsDTOwithouBatchname(Students students) {
+        StudentDTOwithoutBatchName studentDTO = new StudentDTOwithoutBatchName();
         studentDTO.setStudent_id(students.getStudent_id()); //with id
         studentDTO.setName(students.getName());
         studentDTO.setEmail(students.getEmail());

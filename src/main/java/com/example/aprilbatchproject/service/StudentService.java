@@ -2,6 +2,7 @@ package com.example.aprilbatchproject.service;
 
 import com.example.aprilbatchproject.dto.AddressDTO;
 import com.example.aprilbatchproject.dto.StudentDTO;
+import com.example.aprilbatchproject.dto.StudentDTOwithoutBatchName;
 import com.example.aprilbatchproject.entity.Address;
 import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.entity.StatusType;
@@ -84,10 +85,10 @@ public class StudentService {
 
 
 //Get all Students
-    public List<StudentDTO> getAllStudents() {
+    public List<StudentDTOwithoutBatchName> getAllStudents() {
        List<Students> getallstudents=studentRepository.findAll();
 
-      return getallstudents.stream().map(DataConverter::convertStudentsToDTO).collect(Collectors.toList());
+      return getallstudents.stream().map(DataConverter::convertStudentsDTOwithouBatchname).collect(Collectors.toList());
        // return DataConverter.convertStudentsToDTO(getallstudents);
     }
 

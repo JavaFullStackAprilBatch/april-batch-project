@@ -1,5 +1,6 @@
 package com.example.aprilbatchproject.controller;
 import com.example.aprilbatchproject.dto.StudentDTO;
+import com.example.aprilbatchproject.dto.StudentDTOwithoutBatchName;
 import com.example.aprilbatchproject.entity.StatusType;
 import com.example.aprilbatchproject.dto.TrainerDTO;
 import com.example.aprilbatchproject.entity.Students;
@@ -29,9 +30,9 @@ public class StudentController {
 
     @GetMapping("/all")
 
-    public ResponseEntity<ApiResponse<List<StudentDTO>>> getAllStudents() {
-       List<StudentDTO> students = studentService.getAllStudents();
-        return new ResponseEntity<>(new ApiResponse<>(true, "Students fetched successfully", students), HttpStatus.OK);
+    public ResponseEntity<ApiResponse<List<StudentDTOwithoutBatchName>>> getAllStudents() {
+       List<StudentDTOwithoutBatchName> allstudents = studentService.getAllStudents();
+        return new ResponseEntity<>(new ApiResponse<>(true, "Students fetched successfully", allstudents), HttpStatus.OK);
     	
     }
   

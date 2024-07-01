@@ -12,7 +12,7 @@ public class StudentDTO {
     private String email;
     private String phone;
 
-    @JsonIgnore
+
     private List<String> batchNames;
 
     public StudentDTO(int student_id, String name, AddressDTO address, String email, String phone) {
