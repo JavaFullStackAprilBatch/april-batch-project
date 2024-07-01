@@ -1,20 +1,22 @@
 package com.example.aprilbatchproject.dto;
 import com.example.aprilbatchproject.entity.StatusType;
-public class BatchDTO {
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class BatchDTO {
     private String batchName;
     private String batchStart;
     private String batchEnd;
     private String courseName;
     private String trainerName;
     private StatusType batchStatus;
-    private long Noofstudents;
+    private Long Noofstudents;
 
-    public long getNoofstudents() {
+    public Long getNoofstudents() {
         return Noofstudents;
     }
 
-    public void setNoofstudents(long noofstudents) {
+    public void setNoofstudents(Long noofstudents) {
         Noofstudents = noofstudents;
     }
 
@@ -22,6 +24,8 @@ public class BatchDTO {
     public BatchDTO() {}
 
     public BatchDTO(String batchName) {
+        this.batchName=batchName;
+
         }
 
     public BatchDTO(String batchName, String batchStart, String batchEnd, String courseName, String trainerName, StatusType batchStatus)
