@@ -15,13 +15,13 @@ public class StudentDTO {
 
     private List<String> batchNames;
 
-    public StudentDTO(int student_id, String name, AddressDTO address, String email, String phone) {
-        this.student_id = student_id;
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.phone = phone;
-    }
+//    public StudentDTO(int student_id, String name, AddressDTO address, String email, String phone) {
+//        this.student_id = student_id;
+//        this.name = name;
+//        this.address = address;
+//        this.email = email;
+//        this.phone = phone;
+//    }
 
 
 
