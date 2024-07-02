@@ -32,6 +32,8 @@ public class DataConverter {
         }
         return trainerDTOs;
     }
+
+
     public static Trainers convertTrainerDtoToTrainer(TrainerDTO trainerDTO) {
         Trainers trainers = new Trainers();
         trainers.setName(trainerDTO.getTrainerName());
@@ -70,15 +72,20 @@ public class DataConverter {
     }
 
     //TrinerDto Conversion
-    public static TrainerDTO converToTrainerDTO(Trainers trainers)
+    public static List<TrainerDTO> convertToTrainerDtos(List<Trainers> trainers)
     {
-        TrainerDTO trainerDTO=new TrainerDTO();
-        trainerDTO.setTrainerName(trainers.getName());
+        return trainers.stream().map(DataConverter::convertToTrainerDTO).collect(Collectors.toList());
+    }
+    public static TrainerDTO convertToTrainerDTO(Trainers trainers)
+    {
+        TrainerDTO trainerDTOs=new TrainerDTO();
+        trainerDTOs.setTrainer_id(trainers.getTrainer_id());
+        trainerDTOs.setTrainerName(trainers.getName());
         //trainerDTO.setName(trainers.getName());changes while resolve the conflict
-        trainerDTO.setEmail(trainers.getEmail());
-        trainerDTO.setPhone(trainers.getPhone());
-        trainerDTO.setSpecialization(trainers.getSpecialization());
-        return trainerDTO;
+        trainerDTOs.setEmail(trainers.getEmail());
+        trainerDTOs.setPhone(trainers.getPhone());
+        trainerDTOs.setSpecialization(trainers.getSpecialization());
+        return trainerDTOs;
     }
 
 

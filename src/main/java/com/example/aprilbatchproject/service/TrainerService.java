@@ -33,6 +33,14 @@ public class TrainerService {
 			throw new ResourceNotFoundException("No Trainer found");
 		return DataConverter.convertToTrainerDTOs(trainerNames);
 	}
+//get all trainername
+	public List<TrainerDTO> gettrainerAll() {
+		List<Trainers> trainers = trainerRepository.findAll();
+		if (trainers == null) {
+			throw new RuntimeException("triner not found");
+		}
+		return DataConverter.convertToTrainerDtos(trainers);
+	}
 
     public List<TrainerDTO> getTrainerDetailsByName(String trainerName) {
 
@@ -56,7 +64,7 @@ public class TrainerService {
 		try {
 
 			Trainers trainers=trainerRepository.findById(id).get();
-		return  DataConverter.converToTrainerDTO(trainers);
+		return  DataConverter.convertToTrainerDTO(trainers);
 		}catch (Exception e)
 		{
 			throw new RuntimeException("Trainer details not found");

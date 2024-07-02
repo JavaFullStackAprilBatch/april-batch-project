@@ -25,6 +25,14 @@ public class TrainerController {
 
 		return ResponseEntity.ok(response);
 	}
+
+	@GetMapping("/getallTrainers")
+	public ResponseEntity<ApiResponse<List<TrainerDTO>>> getAllTrainersdetails() {
+		List<TrainerDTO> trainerNames = trainerService.gettrainerAll();
+		ApiResponse<List<TrainerDTO>> response = new ApiResponse<>(true, "Trainers fetched successfully", trainerNames);
+
+		return ResponseEntity.ok(response);
+	}
 	@GetMapping("/getTrainerDetailsByName")
 	public ResponseEntity<ApiResponse<List<TrainerDTO>>> getTrainerDetailsByName(@RequestParam String trainerName) {
 		List<TrainerDTO> trainerNames = trainerService.getTrainerDetailsByName(trainerName);

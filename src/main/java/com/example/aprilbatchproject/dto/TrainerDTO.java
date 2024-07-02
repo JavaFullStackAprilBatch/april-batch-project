@@ -1,14 +1,36 @@
 package com.example.aprilbatchproject.dto;
 
 public class TrainerDTO {
-    public String getTrainerName() {
-        return trainerName;
-    }
 
+    private long trainer_id;
     private String trainerName;
     private String email;
     private String phone;
     private String specialization;
+
+    public String getTrainerName() {
+        return trainerName;
+    }
+
+    public long getTrainer_id() {
+        return trainer_id;
+    }
+
+    public void setTrainer_id(long trainer_id) {
+        this.trainer_id = trainer_id;
+    }
+
+
+
+    public TrainerDTO(long trainer_id, String trainerName, String email, String phone, String specialization) {
+        this.trainer_id = trainer_id;
+        this.trainerName = trainerName;
+        this.email = email;
+        this.phone = phone;
+        this.specialization = specialization;
+    }
+
+
 
     public TrainerDTO(String trainerName, String email, String phone, String specialization) {
         this.trainerName = trainerName;
