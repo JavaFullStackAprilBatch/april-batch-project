@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import com.example.aprilbatchproject.dto.CourseDTO;
 import com.example.aprilbatchproject.dto.DeleteCourseDTO;
-import com.example.aprilbatchproject.entity.Courses;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
 import com.example.aprilbatchproject.util.DataConverter;
 //import org.slf4j.Logger;
@@ -15,24 +14,25 @@ import com.example.aprilbatchproject.util.DataConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.aprilbatchproject.repository.CourseRepository;
-
 @Service
 public class CourseService {
 
     @Autowired
     CourseRepository courseRepository;
 
-    public String createCourse(Courses courses) throws Exception {
-        if (courseRepository.existsByCourseNameIgnoreCase(courses.getCourseName())) {
+    public Courses createCourse(CourseDTO courseDto) throws Exception {
+        if (courseRepository.existsByCourseNameIgnoreCase(courseDto.getCourseName())) {
             throw new Exception("Course Name Already exist");
         }
-        courseRepository.save(courses);
-        return " ";
+		Courses course=new Courses();
+		course.setCourseName(courseDto.getCourseName());
+		course.setCourseContent(courseDto.getCourseContent());
+
+        return courseRepository.save(course);
     }
 
-    public List<Courses> getCourse() {
-        return courseRepository.findAll();
+    public List<CourseDTO> getCourses() {
+        return courseRepository.findAllCourses();
     }
 
 
