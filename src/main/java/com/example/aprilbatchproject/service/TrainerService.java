@@ -1,12 +1,16 @@
 package com.example.aprilbatchproject.service;
 
+import com.example.aprilbatchproject.dto.DeleteTrainerDTO;
 import com.example.aprilbatchproject.dto.TrainerDTO;
+import com.example.aprilbatchproject.entity.Batches;
 import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.exception.ResourceNotFoundException;
+import com.example.aprilbatchproject.repository.BatchRepository;
 import com.example.aprilbatchproject.repository.TrainerRepository;
 import com.example.aprilbatchproject.util.DataConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.example.aprilbatchproject.exception.ConstraintViolationException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +20,8 @@ public class TrainerService {
 
 	@Autowired
 	TrainerRepository trainerRepository;
+	 @Autowired
+	private BatchRepository batchRepository;
 
 
 	public TrainerDTO createTrainers(TrainerDTO trainerDTO) {
@@ -72,7 +78,20 @@ public class TrainerService {
 
 	}
 
-
+	 public DeleteTrainerDTO deleteTrainer(Long id){
+	        Trainers trainer = trainerRepository.findById(id)
+	                .orElseThrow(() -> new ResourceNotFoundException("Trainer not found"));
+	        DeleteTrainerDTO deletetrainerDTO = new DeleteTrainerDTO(trainer.getName(),trainer.getEmail(),trainer.getPhone(),
+					trainer.getSpecialization());
+	        List<Batches> batches = batchRepository.findByTrainerId(id);
+	        if (batches != null && !batches.isEmpty()) {
+	        	throw new ConstraintViolationException(" This Trainer cannot be deleted as trainer is associated with batch.So replace the trainer before delete");
+	        }
+	        else {
+	        trainerRepository.delete(trainer);
+	        }
+	        return deletetrainerDTO;
+	    }
 
 
 }

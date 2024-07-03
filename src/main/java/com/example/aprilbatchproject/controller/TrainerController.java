@@ -2,6 +2,7 @@ package com.example.aprilbatchproject.controller;
 
 import java.util.List;
 
+import com.example.aprilbatchproject.dto.DeleteTrainerDTO;
 import com.example.aprilbatchproject.dto.TrainerDTO;
 import com.example.aprilbatchproject.entity.Trainers;
 import com.example.aprilbatchproject.response.ApiResponse;
@@ -55,5 +56,12 @@ public class TrainerController {
 		else
 			return new ResponseEntity<>(new ApiResponse<>(false, "Failed to insert trainers", createdTrainers), HttpStatus.BAD_REQUEST);
 
+	}
+	@DeleteMapping("/deletetrainerbyid/{id}")
+	public ResponseEntity<ApiResponse<DeleteTrainerDTO>> deleteTrainer(@PathVariable Long id) {
+		DeleteTrainerDTO deletetrainer=trainerService.deleteTrainer(id);
+		ApiResponse<DeleteTrainerDTO>response=  new ApiResponse<>(true, "Trainer deleted successfully", deletetrainer);
+		return ResponseEntity.ok(response);
+		
 	}
 }
