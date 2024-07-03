@@ -29,9 +29,10 @@ public class CourseController {
 	}
 
     @GetMapping
-    public List<Courses> getCourse() {
-        return courseService.getCourse();
+    public List<CourseDTO> getCourse() {
+        return courseService.getCourses();
     }
+
 	@GetMapping("/getAllCoursesName")
 	public ResponseEntity<ApiResponse<List<CourseDTO>>> getCoursesNames() {
 //		return courseService.getAllCourseNames();
