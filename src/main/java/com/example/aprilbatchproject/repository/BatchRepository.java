@@ -35,5 +35,8 @@ public interface BatchRepository extends JpaRepository<Batches, Long> {
 
     @Query("select b from Batches b where b.status= :status")
     public List<Batches> findByBatchStatus(StatusType status );
+    
+    @Query(nativeQuery = true, value = "select * from batches b where b.trainer_id= :trainer_id")
+    public List<Batches> findByTrainerId(Long trainer_id);
 
 }
